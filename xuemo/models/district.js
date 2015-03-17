@@ -4,16 +4,17 @@ module.exports = function(sequelize, DataTypes) {
   var District = sequelize.define("District", {
     id: {
       type: DataTypes.INTEGER,
-      primaryKey: true
+      primaryKey: true,
+      autoIncrement: true
     },
-    parent_id: DataTypes.INTEGER,
     code: DataTypes.INTEGER,
     name: DataTypes.STRING,
     full_name:DataTypes.STRING
   }, {
     classMethods: {
       associate: function(models) {
-        District.hasOne(District, {as: 'parent'});
+        District.hasOne(District, {foreignKey: "parentId"});
+        District.belongsToMany(models.Course, {through: "CourseDistricts"});
       }
     }
   });
