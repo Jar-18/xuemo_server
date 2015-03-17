@@ -2,13 +2,16 @@
 
 module.exports = function(sequelize, DataTypes) {
   var Category = sequelize.define("Category", {
-    name: DataTypes.STRING,
-    name2: DataTypes.STRING,
-    id: DataTypes.INTEGER
+      id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true
+      },
+      code: DataTypes.INTEGER,
+      name: DataTypes.STRING,
   }, {
     classMethods: {
       associate: function(models) {
-        //User.hasMany(models.Task)
+        Category.hasOne(Category, {as: 'parent'});
       }
     }
   });

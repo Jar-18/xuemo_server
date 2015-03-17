@@ -9,6 +9,11 @@ var routes = require('./routes/index');
 var users = require('./routes/users');
 var categories = require('./routes/categories');
 
+var models = require("./models");
+models.sequelize.sync({force: true}).then(function() {
+  console.log("Cleaned and recreated database tables...");
+});
+
 var app = express();
 
 // view engine setup

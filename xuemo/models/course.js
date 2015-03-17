@@ -8,7 +8,7 @@ module.exports = function(sequelize, DataTypes) {
   }, {
     classMethods: {
       associate: function(models) {
-        //User.hasMany(models.Task)
+        Course.belongsTo(models.User, {as: "teacher"});
       }
     }
   });

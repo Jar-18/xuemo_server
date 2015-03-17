@@ -5,7 +5,7 @@ module.exports = function(sequelize, DataTypes) {
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true
-    }，
+    },
     parent_id: DataTypes.INTEGER,
     code: DataTypes.INTEGER,
     name: DataTypes.STRING,
@@ -13,7 +13,7 @@ module.exports = function(sequelize, DataTypes) {
   }, {
     classMethods: {
       associate: function(models) {
-        //User.hasMany(models.Task)
+        District.hasOne(District, {as: 'parent'});
       }
     }
   });
