@@ -14,7 +14,7 @@ module.exports = function(sequelize, DataTypes) {
     classMethods: {
       associate: function(models) {
         District.hasOne(District, {foreignKey: "parentId"});
-        District.belongsToMany(models.Course, {through: "CourseDistricts"});
+        District.belongsToMany(models.Course);
       }
     }
   });
