@@ -15,7 +15,7 @@ module.exports = function(sequelize, DataTypes) {
       associate: function(models) {
         Course.belongsTo(models.User, {foreignKey: "teacherId"});
         Course.belongsTo(models.Category, {foreignKey: "categoryId"});
-        Course.belongsToMany(models.District);
+        Course.hasMany(models.District);
       }
     }
   });

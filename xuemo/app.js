@@ -8,13 +8,17 @@ var bodyParser = require('body-parser');
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var categories = require('./routes/categories');
+var districts = require('./routes/districts');
+var courses = require('./routes/courses');
 
 var models = require("./models");
 models.sequelize.query("SET FOREIGN_KEY_CHECKS = 0")
 .then(function() {
+  //sync method create tables
   return models.sequelize.sync({force: true}).success(function() {
   console.log("-----Cleaned and recreated database tables...");
 
+  //Create test data
   var u1 = models.User.build({nickname: "Jar", gender: 1, age: 22});
   var u2 = models.User.build({nickname: "Alice", gender: 0, age: 18});
 
@@ -50,7 +54,8 @@ models.sequelize.query("SET FOREIGN_KEY_CHECKS = 0")
   chainer.add(ca5.save());
   chainer.add(co1.save());
   chainer.add(co2.save());
-  chainer.add(co1.setDistricts([d4,d5]));
+  //chainer.add(co1.setDistricts([d4,d5]));
+  co1.setDistricts([d4,d5]);
   chainer.run();
 })
 })
@@ -76,6 +81,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', routes);
 app.use('/users', users);
 app.use('/categories', categories);
+app.use('/districts', districts);
+app.use('/courses', courses);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

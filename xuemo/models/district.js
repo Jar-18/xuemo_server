@@ -11,6 +11,7 @@ module.exports = function(sequelize, DataTypes) {
     name: DataTypes.STRING,
     full_name:DataTypes.STRING
   }, {
+    timestamps: false,
     classMethods: {
       associate: function(models) {
         District.hasOne(District, {foreignKey: "parentId"});

@@ -10,6 +10,7 @@ module.exports = function(sequelize, DataTypes) {
       code: DataTypes.INTEGER,
       name: DataTypes.STRING,
   }, {
+    timestamps: false,
     classMethods: {
       associate: function(models) {
         Category.hasOne(Category, {foreignKey: 'parentId'});
