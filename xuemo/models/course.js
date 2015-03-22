@@ -8,8 +8,9 @@ module.exports = function(sequelize, DataTypes) {
       autoIncrement: true
     },
     title: DataTypes.STRING,
-    salary: DataTypes.INTEGER,
-    status: DataTypes.INTEGER
+    price: DataTypes.INTEGER,
+    status: DataTypes.INTEGER,
+    rating: DataTypes.FLOAT,
   }, {
     classMethods: {
       associate: function(models) {

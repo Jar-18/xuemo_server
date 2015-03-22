@@ -18,7 +18,11 @@ router.get('/', function(req, res, next) {
   		{
   			model:models.District,
   			as: "districts"
-  		}
+  		},
+      {
+        model:models.CoursePic,
+        as: "pics"
+      }
   	]
   }).then(function(courses) {
   	res.json(courses);
@@ -39,7 +43,11 @@ router.get('/:courseId', function(req, res) {
   		{
   			model:models.District,
   			as: "districts"
-  		}
+  		},
+      {
+        model:models.CoursePic,
+        as: "pics"
+      }
   	]
   	}).then(function(course) {
   		res.json(course);

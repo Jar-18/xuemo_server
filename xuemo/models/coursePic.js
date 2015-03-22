@@ -7,11 +7,12 @@ module.exports = function(sequelize, DataTypes) {
         primaryKey: true,
         autoIncrement: true
       },
-      path: {
+      name: {
         type: DataTypes.STRING
       }
   }, {
     classMethods: {
+      timestamps: false,
       associate: function(models) {
         //CoursePic.belongsTo(models.Course);
       }

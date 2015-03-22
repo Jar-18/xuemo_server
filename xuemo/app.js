@@ -5,6 +5,8 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+var cors = require('cors');
+
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var categories = require('./routes/categories');
@@ -22,11 +24,11 @@ models.sequelize.query("SET FOREIGN_KEY_CHECKS = 1")
   var u1 = models.User.build({nickname: "Jar", gender: 1, age: 22});
   var u2 = models.User.build({nickname: "Alice", gender: 0, age: 18});
 
-  var d1 = models.District.build({id:1, code: "01", name: "中国", full_name: "中国"});
-  var d2 = models.District.build({id:2, code: "0101", name: "上海", full_name: "中国-上海"});
-  var d3 = models.District.build({id:3, code: "0102", name: "四川", full_name: "中国-四川"});
-  var d4 = models.District.build({id:4, code: "010101", name: "浦东新区", full_name: "中国-上海-浦东新区"});
-  var d5 = models.District.build({id:5, code: "010102", name: "静安区", full_name: "中国-上海-静安新区"});
+  var d1 = models.District.build({id:1, code: "01", name: "中国", fullName: "中国"});
+  var d2 = models.District.build({id:2, code: "0101", name: "上海", fullName: "中国-上海"});
+  var d3 = models.District.build({id:3, code: "0102", name: "四川", fullName: "中国-四川"});
+  var d4 = models.District.build({id:4, code: "010101", name: "浦东新区", fullName: "中国-上海-浦东新区"});
+  var d5 = models.District.build({id:5, code: "010102", name: "静安区", fullName: "中国-上海-静安区"});
 
   var ca1 = models.Category.build({id:1, code: "01", name: "语言"});
   var ca2 = models.Category.build({id:2, code: "02", name: "运动"});
@@ -34,10 +36,15 @@ models.sequelize.query("SET FOREIGN_KEY_CHECKS = 1")
   var ca4 = models.Category.build({id:4, code: "0102", name: "法语"});
   var ca5 = models.Category.build({id:5, code: "0201", name: "羽毛球"});
 
-  var co1 = models.Course.build({id:1, title:"教英语，包教包会", salary:100, status: 1, teacherId: 1, categoryId: 3});
-  var co2 = models.Course.build({id:2, title:"本人教过很多高三学生去法国", salary:200, status: 2, teacherId: 1, categoryId: 4});
-  var co3 = models.Course.build({id:3, title:"业余时间教羽毛球", salary:180, status: 1, teacherId: 1, categoryId: 5});
-  var co4 = models.Course.build({id:4, title:"英语从此不再难", salary:80, status: 1, teacherId: 2, categoryId: 3});
+  var co1 = models.Course.build({id:1, title:"教英语，包教包会", price:100, status: 1, teacherId: 1, categoryId: 3, rating:4.0});
+  var co2 = models.Course.build({id:2, title:"本人教过很多高三学生去法国", price:200, status: 2, teacherId: 1, categoryId: 4, rating:3.5});
+  var co3 = models.Course.build({id:3, title:"业余时间教羽毛球", price:180, status: 1, teacherId: 1, categoryId: 5, rating:3.7});
+  var co4 = models.Course.build({id:4, title:"英语从此不再难", price:80, status: 1, teacherId: 2, categoryId: 3, rating:4.6});
+
+  var cp1 = models.CoursePic.build({id: 1, name: "english.jpg"});
+  var cp2 = models.CoursePic.build({id: 2, name: "french.jpg"});
+  var cp3 = models.CoursePic.build({id: 3, name: "badminton.jpg"});
+  var cp4 = models.CoursePic.build({id: 4, name: "english.jpg"});
 
   var chainer = new models.Sequelize.Utils.QueryChainer;
 
@@ -57,6 +64,10 @@ models.sequelize.query("SET FOREIGN_KEY_CHECKS = 1")
   chainer.add(co2.save());
   chainer.add(co3.save());
   chainer.add(co4.save());
+  chainer.add(cp1.save());
+  chainer.add(cp2.save());
+  chainer.add(cp3.save());
+  chainer.add(cp4.save());
   chainer.runSerially().then(function() {
     console.log("-----Creating relatioships...");
     d1.setParent(d1);
@@ -81,6 +92,10 @@ models.sequelize.query("SET FOREIGN_KEY_CHECKS = 1")
     co2.setDistricts([d4]);
     co3.setDistricts([d5]);
     co4.setDistricts([d2,d3]);
+    co1.addPics(cp1);
+    co2.addPics(cp2);
+    co3.addPics(cp3);
+    co4.addPics(cp4);
   });
 })
 })
@@ -89,6 +104,10 @@ models.sequelize.query("SET FOREIGN_KEY_CHECKS = 1")
 });
 
 var app = express();
+
+app.use(cors());
+
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -114,6 +133,10 @@ app.use(function(req, res, next) {
   err.status = 404;
   next(err);
 });
+
+
+
+
 
 // error handlers
 

@@ -9,7 +9,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     code: DataTypes.INTEGER,
     name: DataTypes.STRING,
-    full_name:DataTypes.STRING
+    fullName:DataTypes.STRING
   }, {
     timestamps: false,
     classMethods: {
