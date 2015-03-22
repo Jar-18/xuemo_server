@@ -26,7 +26,24 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/:courseId', function(req, res) {
-	//res.send(req.params.userId);
+	models.Course.findAll({
+  	include: [
+  		{
+  			model:models.User,
+  			as: "teacher"
+  		},
+  		{
+  			model:models.Category,
+  			as: "category"
+  		},
+  		{
+  			model:models.District,
+  			as: "districts"
+  		}
+  	]
+  	}).then(function(course) {
+  		res.json(course);
+  	});
 })
 
 module.exports = router;
