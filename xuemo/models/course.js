@@ -13,9 +13,9 @@ module.exports = function(sequelize, DataTypes) {
   }, {
     classMethods: {
       associate: function(models) {
-        Course.belongsTo(models.User, {foreignKey: "teacherId"});
-        Course.belongsTo(models.Category, {foreignKey: "categoryId"});
-        Course.hasMany(models.District);
+        Course.belongsTo(models.User, {as: "teacher"});
+        Course.belongsTo(models.Category, {as: "category"});
+        Course.belongsToMany(models.District, {as: "districts", through: "CourseDistricts"});
       }
     }
   });

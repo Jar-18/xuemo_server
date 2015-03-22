@@ -6,7 +6,20 @@ var router = express.Router();
 router.get('/', function(req, res, next) {
   //res.send('respond with a resource');
   models.Course.findAll({
-  	include: [models.Category, models.District]
+  	include: [
+  		{
+  			model:models.User,
+  			as: "teacher"
+  		},
+  		{
+  			model:models.Category,
+  			as: "category"
+  		},
+  		{
+  			model:models.District,
+  			as: "districts"
+  		}
+  	]
   }).then(function(courses) {
   	res.json(courses);
   });

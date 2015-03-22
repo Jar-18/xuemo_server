@@ -13,7 +13,7 @@ module.exports = function(sequelize, DataTypes) {
     timestamps: false,
     classMethods: {
       associate: function(models) {
-        Category.hasOne(Category, {foreignKey: 'parentId'});
+        Category.belongsTo(Category, {as: 'parent'});
       }
     }
   });
