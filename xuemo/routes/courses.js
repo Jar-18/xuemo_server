@@ -30,7 +30,8 @@ router.get('/', function(req, res, next) {
       {
         model:models.CoursePic,
         as: "pics",
-        attributes: ['name']
+        attributes: ['name'],
+        // limit: 1
       }
   	]
   }).then(function(courses) {
