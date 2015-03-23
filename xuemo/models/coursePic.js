@@ -13,9 +13,6 @@ module.exports = function(sequelize, DataTypes) {
   }, {
     classMethods: {
       timestamps: false,
-      associate: function(models) {
-        //CoursePic.belongsTo(models.Course);
-      }
     }
   });
 

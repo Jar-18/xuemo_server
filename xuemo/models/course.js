@@ -16,7 +16,7 @@ module.exports = function(sequelize, DataTypes) {
       associate: function(models) {
         Course.belongsTo(models.User, {as: "teacher"});
         Course.belongsTo(models.Category, {as: "category"});
-        Course.belongsToMany(models.District, {as: "districts", through: "CourseDistricts"});
+        Course.belongsToMany(models.District, {as: "districts", through: models.CourseDistricts});
         Course.belongsToMany(models.User, {as: "ratings", through: models.CourseRating});
         Course.hasMany(models.CoursePic, {as: "pics"})
       }
