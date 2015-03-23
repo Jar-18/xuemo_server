@@ -11,6 +11,9 @@ module.exports = function(sequelize, DataTypes) {
     price: DataTypes.INTEGER,
     status: DataTypes.INTEGER,
     rating: DataTypes.FLOAT,
+    type: DataTypes.INTEGER, //一对一，小班，大班
+    site: DataTypes.INTEGER, //学生家，老师家，公共场所
+    describle: DataTypes.STRING,
   }, {
     classMethods: {
       associate: function(models) {

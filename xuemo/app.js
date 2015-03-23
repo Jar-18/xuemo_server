@@ -46,10 +46,14 @@ models.sequelize.query("SET FOREIGN_KEY_CHECKS = 1")
 
   var co = [];
   data.push(co);
-  co[0] = models.Course.build({id:1, title:"教英语，包教包会", price:100, status: 1, teacherId: 1, categoryId: 3, rating:4.0});
-  co[1] = models.Course.build({id:2, title:"本人教过很多高三学生去法国", price:200, status: 2, teacherId: 1, categoryId: 4, rating:3.5});
-  co[2] = models.Course.build({id:3, title:"业余时间教羽毛球", price:180, status: 1, teacherId: 1, categoryId: 5, rating:3.7});
-  co[3] = models.Course.build({id:4, title:"英语从此不再难", price:80, status: 1, teacherId: 2, categoryId: 3, rating:4.6});
+  co[0] = models.Course.build({id:1, title:"教英语，包教包会", price:100, status: 1, teacherId: 1, categoryId: 3, rating:4.0, type:1, site:1, 
+    describle:"我也不知道写什么描述啊，我教英语。我也不知道写什么描述啊，我教英语。我也不知道写什么描述啊，我教英语。我也不知道写什么描述啊，我教英语。我也不知道写什么描述啊，我教英语。"});
+  co[1] = models.Course.build({id:2, title:"本人教过很多高三学生去法国", price:200, status: 2, teacherId: 1, categoryId: 4, rating:3.5, type:2, site:2, 
+    describle:"我法语教的还可以。我法语教的还可以。我法语教的还可以。我法语教的还可以。我法语教的还可以。我法语教的还可以。我法语教的还可以。我法语教的还可以。我法语教的还可以。我法语教的还可以。"});
+  co[2] = models.Course.build({id:3, title:"业余时间教羽毛球", price:180, status: 1, teacherId: 1, categoryId: 5, rating:3.7, type:3, site:3, 
+    describle:"教羽毛球。教羽毛球。教羽毛球。教羽毛球。教羽毛球。教羽毛球。教羽毛球。教羽毛球。教羽毛球。教羽毛球。教羽毛球。教羽毛球。教羽毛球。教羽毛球。教羽毛球。教羽毛球。教羽毛球。教羽毛球。教羽毛球。教羽毛球。"});
+  co[3] = models.Course.build({id:4, title:"英语从此不再难", price:80, status: 1, teacherId: 2, categoryId: 3, rating:4.6, type:3, site:3, 
+    describle:"Learn English.Learn English.Learn English.Learn English.Learn English.Learn English.Learn English.Learn English.Learn English.Learn English.Learn English."});
 
   var cp = [];
   data.push(cp);
@@ -57,8 +61,8 @@ models.sequelize.query("SET FOREIGN_KEY_CHECKS = 1")
   cp[1] = models.CoursePic.build({id: 2, name: "french.jpg"});
   cp[2] = models.CoursePic.build({id: 3, name: "badminton.jpg"});
   cp[3] = models.CoursePic.build({id: 4, name: "english2.jpg"});
-  cp[4] = models.CoursePic.build({id: 5, name: "englis3.jpg"});
-  cp[5] = models.CoursePic.build({id: 6, name: "englis4.jpg"});
+  cp[4] = models.CoursePic.build({id: 5, name: "english3.jpg"});
+  cp[5] = models.CoursePic.build({id: 6, name: "english4.jpg"});
 
   var chainer = new models.Sequelize.Utils.QueryChainer;
 
@@ -72,7 +76,7 @@ models.sequelize.query("SET FOREIGN_KEY_CHECKS = 1")
   //Create more courses
   for(var i = 0;i < 10;i++) {
       var index = 4 + i;
-      co[index] = models.Course.build({id:index + 1, title:"更多的课程测试分页", price:100, status: 1, teacherId: 1, categoryId: 3, rating:4.0});
+      co[index] = models.Course.build({id:index + 1, title:"更多的课程测试分页", price:100, status: 1, teacherId: 1, categoryId: 3, rating:4.0, type:1, site:1, describle:"就是没有描述。"});
       chainer.add(co[index].save());
   }
 
