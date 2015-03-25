@@ -32,8 +32,12 @@ router.get('/', function(req, res, next) {
         model:models.CoursePic,
         as: "pics",
         attributes: ['name'],
-        limit: 1
-      }
+      },
+      // {
+      //   model:models.CourseRating,
+      //   as: "ratings",
+      //   attributes: [[models.sequelize.fn('count', 'rating'), 'avgRating']],
+      // }
   	]
   }).then(function(courses) {
   	res.json(courses);

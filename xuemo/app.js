@@ -64,6 +64,11 @@ models.sequelize.query("SET FOREIGN_KEY_CHECKS = 1")
   cp[4] = models.CoursePic.build({id: 5, name: "english3.jpg"});
   cp[5] = models.CoursePic.build({id: 6, name: "english4.jpg"});
 
+  var cr = [];
+  data.push(cr);
+  cr[0] = models.CourseRating.build({id:1, rating: 4});
+  cr[1] = models.CourseRating.build({id:2, rating: 5});
+
   var chainer = new models.Sequelize.Utils.QueryChainer;
 
   //Some blogs say using FOR is faster
@@ -109,6 +114,7 @@ models.sequelize.query("SET FOREIGN_KEY_CHECKS = 1")
     co[1].setPics([cp[1]]);
     co[2].setPics([cp[2]]);
     co[3].setPics([cp[5]]);
+    co[0].setRatings([cr[0],cr[1]]);
     //Create more courses
     for(var i = 0;i < 10;i++) {
       var index = 4 + i;
