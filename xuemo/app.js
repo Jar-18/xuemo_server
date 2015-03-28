@@ -12,6 +12,7 @@ var users = require('./routes/users');
 var categories = require('./routes/categories');
 var districts = require('./routes/districts');
 var courses = require('./routes/courses');
+var courseRatings = require('./routes/courseRatings');
 
 var models = require("./models");
 models.sequelize.query("SET FOREIGN_KEY_CHECKS = 1")
@@ -66,9 +67,9 @@ models.sequelize.query("SET FOREIGN_KEY_CHECKS = 1")
 
   var cr = [];
   data.push(cr);
-  cr[0] = models.CourseRating.build({id:1, rating: 4});
-  cr[1] = models.CourseRating.build({id:2, rating: 4.6});
-  cr[2] = models.CourseRating.build({id:3, rating: 5});
+  cr[0] = models.CourseRating.build({id:1, rating: 4, comment:"教的还过得去"});
+  cr[1] = models.CourseRating.build({id:2, rating: 4.6, comment:"人很好"});
+  cr[2] = models.CourseRating.build({id:3, rating: 5, comment:"这是我见过的最好的老师"});
 
   var chainer = new models.Sequelize.Utils.QueryChainer;
 
@@ -89,6 +90,7 @@ models.sequelize.query("SET FOREIGN_KEY_CHECKS = 1")
 
   chainer.run().then(function() {
     console.log("-----Creating relatioships...");
+    u[1].setRatings([cr[0],cr[1],cr[2]]);
     d[0].setParent(d[0]);
     d[1].setParent(d[0]);
     d[2].setParent(d[0]);
@@ -154,6 +156,7 @@ app.use('/users', users);
 app.use('/categories', categories);
 app.use('/districts', districts);
 app.use('/courses', courses);
+app.use('/courseRatings', courseRatings);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
