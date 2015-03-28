@@ -52,13 +52,11 @@ router.get('/', function(req, res, next) {
 
 router.get('/:courseId', function(req, res) {
   var courseId = req.params.courseId;
-  var simple = req.query.simple == null ? false : (req.query.simple == 'true' ? true : false);
   models.Course.find({
     where:{
       id:courseId
     },
-    attributes: simple == true? ['id', 'title', 'price', 'status', 'rating','teacherId', 'categoryId']
-      : ['id', 'title', 'price', 'status', 'rating', 'type', 'site', 'describle', 'teacherId', 'categoryId'],
+    attributes: ['id', 'title', 'price', 'status', 'rating', 'ratingAmount','type', 'site', 'describle', 'teacherId', 'categoryId'],
     include: [
       {
         model:models.User,
