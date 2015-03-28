@@ -5,12 +5,15 @@ var router = express.Router();
 router.get('/', function(req, res, next) {
   var pageSize = req.query.pageSize == null ? 10 : req.query.pageSize;
   var pageNumber = req.query.pageNumber == null ? 1 : req.query.pageNumber;
+  var orderBy = req.query.orderBy = null ? 'createdAt DESC' : req.query.orderBy;
   var simple = req.query.simple == null ? false : (req.query.simple == 'true' ? true : false);
+
   models.Course.findAll({
-    attributes: simple == true? ['id', 'title', 'price', 'status', 'rating','teacherId', 'categoryId']
-      : ['id', 'title', 'price', 'status', 'rating', 'type', 'site', 'describle', 'teacherId', 'categoryId'],
+    attributes: simple == true ? ['id', 'title', 'price', 'status', 'rating','teacherId', 'categoryId']
+      : ['id', 'title', 'price', 'status', 'rating', 'type', 'site', 'describle', 'teacherId', 'categoryId', 'createdAt'],
     limit: pageSize,
     offset: (pageNumber - 1) * pageSize,
+    order: orderBy,
   	include: [
   		{
   			model:models.User,
