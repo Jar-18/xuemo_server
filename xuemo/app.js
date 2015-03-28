@@ -26,8 +26,8 @@ models.sequelize.query("SET FOREIGN_KEY_CHECKS = 1")
 
   var u = [];
   data.push(u);
-  u[0] = models.User.build({nickname: "Jar", gender: 1, age: 22});
-  u[1] = models.User.build({nickname: "Alice", gender: 0, age: 18});
+  u[0] = models.User.build({nickname: "Jar", gender: 1, age: 22, portrait: "jar.jpg"});
+  u[1] = models.User.build({nickname: "Alice", gender: 0, age: 18, portrait: "alice.jpg"});
 
   var d = [];
   data.push(d);

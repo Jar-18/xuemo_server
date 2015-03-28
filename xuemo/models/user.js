@@ -9,7 +9,8 @@ module.exports = function(sequelize, DataTypes) {
     },
     nickname: DataTypes.STRING,
     gender: DataTypes.INTEGER,
-    age: DataTypes.INTEGER
+    age: DataTypes.INTEGER,
+    portrait: DataTypes.STRING
   }, {
     classMethods: {
       associate: function(models) {
