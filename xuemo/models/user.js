@@ -13,8 +13,8 @@ module.exports = function(sequelize, DataTypes) {
   }, {
     classMethods: {
       associate: function(models) {
-        User.hasMany(models.Course, {foreignKey: "teacherId"});
-        //User.belongsToMany(models.Course, {as: "ratings", through: models.CourseRating});
+        User.hasMany(models.Course, {as: "courses"});
+        User.hasMany(models.CourseRating, {as: "ratings"});
       }
     }
   });

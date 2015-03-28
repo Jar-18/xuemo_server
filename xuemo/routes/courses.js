@@ -31,14 +31,21 @@ router.get('/', function(req, res, next) {
       {
         model:models.CoursePic,
         as: "pics",
-        attributes: ['name'],
+        attributes: ['name']
+        // attributes: Object.keys(models.CoursePic.attributes).concat([
+        //     [models.sequelize.literal('(SELECT TOP 1 "name" FROM "CoursePics" WHERE "Course"."id" = "CoursePics"."courseId")'), 'name']
+        // ])
       },
       // {
       //   model:models.CourseRating,
       //   as: "ratings",
-      //   attributes: [[models.sequelize.fn('count', 'rating'), 'avgRating']],
+      //   attributes: [
+      //     [models.sequelize.fn('COUNT', 'rating'), 'RatingCount'],
+      //     [models.sequelize.fn('SUM', 'rating'), 'RatingSum']
+      //   ],
+      //   group: ['CourseId']
       // }
-  	]
+  	],
   }).then(function(courses) {
   	res.json(courses);
   });

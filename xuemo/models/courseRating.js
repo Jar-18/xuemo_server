@@ -9,11 +9,14 @@ module.exports = function(sequelize, DataTypes) {
       },
       rating: {
         type: DataTypes.FLOAT
+      },
+      comment: {
+        type: DataTypes.STRING
       }
   }, {
     classMethods: {
       associate: function(models) {
-
+        models.CourseRating.belongsTo(models.User, {as:"commentator"});
       }
     }
   });

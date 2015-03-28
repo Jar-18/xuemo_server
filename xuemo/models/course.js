@@ -10,7 +10,8 @@ module.exports = function(sequelize, DataTypes) {
     title: DataTypes.STRING,
     price: DataTypes.INTEGER,
     status: DataTypes.INTEGER,
-    rating: DataTypes.FLOAT,
+    rating: DataTypes.FLOAT, //针对评分做的冗余
+    ratingAmount: DataTypes.FLOAT, //针对评分做的冗余
     type: DataTypes.INTEGER, //一对一，小班，大班
     site: DataTypes.INTEGER, //学生家，老师家，公共场所
     describle: DataTypes.STRING,
