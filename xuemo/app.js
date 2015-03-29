@@ -90,8 +90,8 @@ function initTestData() {
 
   var u = [];
   data.push(u);
-  u[0] = models.User.build({nickname: "Jar", gender: 1, age: 22, portrait: "jar.jpg"});
-  u[1] = models.User.build({nickname: "Alice", gender: 0, age: 18, portrait: "alice.jpg"});
+  u[0] = models.User.build({nickname: "Jar", gender: 1, age: 22, portrait: "jar.jpg", motto:"无忧无虑的程序猿"});
+  u[1] = models.User.build({nickname: "Alice", gender: 0, age: 18, portrait: "alice.jpg", motoo:"我为什么存在？"});
 
   var d = [];
   data.push(d);

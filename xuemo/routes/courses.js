@@ -59,12 +59,14 @@ router.get('/:courseId', function(req, res) {
     where:{
       id:courseId
     },
-    attributes: ['id', 'title', 'price', 'status', 'rating', 'ratingAmount','type', 'site', 'describle', 'teacherId', 'categoryId'],
+    attributes: [
+      'id', 'title', 'price', 'status', 'rating', 'ratingAmount','type', 'site', 'describle', 'teacherId', 'categoryId',
+    ],
     include: [
       {
         model:models.User,
         as: "teacher",
-        attributes: ['id', 'nickName', 'gender', 'age']
+        attributes: ['id', 'nickName', 'gender', 'age', 'portrait', 'motto']
       },
       {
         model:models.Category,
