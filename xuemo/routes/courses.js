@@ -7,9 +7,20 @@ router.get('/', function(req, res, next) {
   var pageNumber = req.query.pageNumber == null ? 1 : req.query.pageNumber;
   var orderBy = req.query.orderBy = null ? 'createdAt DESC' : req.query.orderBy;
   var simple = req.query.simple == null ? false : (req.query.simple == 'true' ? true : false);
+  var exceptCourseId = req.query.exceptCourseId;
+  var teacherId = req.query.teacherId;
+
+  var wherePart = {};
+  if(exceptCourseId != null) {
+    wherePart.id = {$ne: exceptCourseId};
+  }
+  if(teacherId != null) {
+    wherePart.teacherId = teacherId;
+  }
 
   models.Course.findAll({
-    attributes: simple == true ? ['id', 'title', 'price', 'status', 'rating','teacherId', 'categoryId']
+    where: wherePart,
+    attributes: simple == true ? ['id', 'title', 'price', 'status', 'rating','teacherId', 'categoryId', 'createdAt']
       : ['id', 'title', 'price', 'status', 'rating', 'type', 'site', 'describe', 'teacherId', 'categoryId', 'createdAt'],
     limit: pageSize,
     offset: (pageNumber - 1) * pageSize,
@@ -18,7 +29,7 @@ router.get('/', function(req, res, next) {
   		{
   			model:models.User,
   			as: "teacher",
-        attributes: ['id', 'nickName', 'gender', 'age']
+        attributes: ['id', 'nickname', 'gender', 'age']
   		},
   		{
   			model:models.Category,
@@ -53,6 +64,15 @@ router.get('/', function(req, res, next) {
   });
 });
 
+router.post('/', function(req, res) {
+  console.log(req.body);
+  models.Course.create({
+    title: req.body.title
+  }).then(function(){
+    res.send(req.body);
+  });
+});
+
 router.get('/:courseId', function(req, res) {
   var courseId = req.params.courseId;
   models.Course.find({
@@ -66,7 +86,7 @@ router.get('/:courseId', function(req, res) {
       {
         model:models.User,
         as: "teacher",
-        attributes: ['id', 'nickName', 'gender', 'age', 'portrait', 'motto']
+        attributes: ['id', 'nickname', 'gender', 'age', 'portrait', 'motto']
       },
       {
         model:models.Category,

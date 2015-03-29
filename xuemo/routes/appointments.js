@@ -23,7 +23,7 @@ router.get('/', function(req, res, next) {
   			{
   				model: models.User,
   				as:"applicant",
-  				attributes: ['id', 'nickname', 'portrait']
+  				attributes: ['id', 'nickname', 'portrait', 'gender', 'age']
   			}
   		]
   	}).then(function(courseAppointments) {
