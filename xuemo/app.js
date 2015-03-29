@@ -13,6 +13,7 @@ var categories = require('./routes/categories');
 var districts = require('./routes/districts');
 var courses = require('./routes/courses');
 var courseRatings = require('./routes/courseRatings');
+var appointments = require('./routes/appointments');
 
 var models = require("./models");
 
@@ -42,6 +43,7 @@ app.use('/categories', categories);
 app.use('/districts', districts);
 app.use('/courses', courses);
 app.use('/courseRatings', courseRatings);
+app.use('/appointments', appointments);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -112,13 +114,13 @@ function initTestData() {
   var co = [];
   data.push(co);
   co[0] = models.Course.build({id:1, title:"教英语，包教包会", price:100, status: 1, teacherId: 1, categoryId: 3, rating:4.0, ratingAmount: 3, type:1, site:1, 
-    describle:"我也不知道写什么描述啊，我教英语。我也不知道写什么描述啊，我教英语。我也不知道写什么描述啊，我教英语。我也不知道写什么描述啊，我教英语。我也不知道写什么描述啊，我教英语。"});
+    describe:"我也不知道写什么描述啊，我教英语。我也不知道写什么描述啊，我教英语。我也不知道写什么描述啊，我教英语。我也不知道写什么描述啊，我教英语。我也不知道写什么描述啊，我教英语。"});
   co[1] = models.Course.build({id:2, title:"本人教过很多高三学生去法国", price:200, status: 2, teacherId: 1, categoryId: 4, rating:3.5, ratingAmount: 5, type:2, site:2, 
-    describle:"我法语教的还可以。我法语教的还可以。我法语教的还可以。我法语教的还可以。我法语教的还可以。我法语教的还可以。我法语教的还可以。我法语教的还可以。我法语教的还可以。我法语教的还可以。"});
+    describe:"我法语教的还可以。我法语教的还可以。我法语教的还可以。我法语教的还可以。我法语教的还可以。我法语教的还可以。我法语教的还可以。我法语教的还可以。我法语教的还可以。我法语教的还可以。"});
   co[2] = models.Course.build({id:3, title:"业余时间教羽毛球", price:180, status: 1, teacherId: 1, categoryId: 5, rating:3.7, ratingAmount: 3, type:3, site:3, 
-    describle:"教羽毛球。教羽毛球。教羽毛球。教羽毛球。教羽毛球。教羽毛球。教羽毛球。教羽毛球。教羽毛球。教羽毛球。教羽毛球。教羽毛球。教羽毛球。教羽毛球。教羽毛球。教羽毛球。教羽毛球。教羽毛球。教羽毛球。教羽毛球。"});
+    describe:"教羽毛球。教羽毛球。教羽毛球。教羽毛球。教羽毛球。教羽毛球。教羽毛球。教羽毛球。教羽毛球。教羽毛球。教羽毛球。教羽毛球。教羽毛球。教羽毛球。教羽毛球。教羽毛球。教羽毛球。教羽毛球。教羽毛球。教羽毛球。"});
   co[3] = models.Course.build({id:4, title:"英语从此不再难", price:80, status: 1, teacherId: 2, categoryId: 3, rating:4.6, ratingAmount: 8, type:3, site:3, 
-    describle:"Learn English.Learn English.Learn English.Learn English.Learn English.Learn English.Learn English.Learn English.Learn English.Learn English.Learn English."});
+    describe:"Learn English.Learn English.Learn English.Learn English.Learn English.Learn English.Learn English.Learn English.Learn English.Learn English.Learn English."});
 
   var cp = [];
   data.push(cp);
@@ -134,6 +136,11 @@ function initTestData() {
   cr[0] = models.CourseRating.build({id:1, rating: 4, comment:"教的还过得去"});
   cr[1] = models.CourseRating.build({id:2, rating: 4.6, comment:"人很好"});
   cr[2] = models.CourseRating.build({id:3, rating: 5, comment:"这是我见过的最好的老师"});
+
+  var a = [];
+  data.push(a);
+  a[0] = models.Appointment.build({id:1, status: 1});
+  a[1] = models.Appointment.build({id:2, status: 2});
 
   var chainer = new models.Sequelize.Utils.QueryChainer;
 
@@ -183,6 +190,8 @@ function initTestData() {
     co[3].setPics([cp[5]]);
     co[0].setRatings([cr[0],cr[1]]);
     co[1].setRatings([cr[2]]);
+    u[1].setAppointments([a[0],a[1]]);
+    co[0].setAppointments([a[0],a[1]]);
     //Create more courses
     for(var i = 0;i < 10;i++) {
       var index = 4 + i;

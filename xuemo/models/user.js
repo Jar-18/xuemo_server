@@ -17,6 +17,7 @@ module.exports = function(sequelize, DataTypes) {
       associate: function(models) {
         User.hasMany(models.Course, {as: "courses"});
         User.hasMany(models.CourseRating, {as: "ratings", foreignKey: "commentatorId"});
+        User.hasMany(models.Appointment, {as: "appointments", foreignKey: "applicantId"});
       }
     }
   });

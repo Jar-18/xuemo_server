@@ -10,7 +10,7 @@ router.get('/', function(req, res, next) {
 
   models.Course.findAll({
     attributes: simple == true ? ['id', 'title', 'price', 'status', 'rating','teacherId', 'categoryId']
-      : ['id', 'title', 'price', 'status', 'rating', 'type', 'site', 'describle', 'teacherId', 'categoryId', 'createdAt'],
+      : ['id', 'title', 'price', 'status', 'rating', 'type', 'site', 'describe', 'teacherId', 'categoryId', 'createdAt'],
     limit: pageSize,
     offset: (pageNumber - 1) * pageSize,
     order: orderBy,
@@ -60,7 +60,7 @@ router.get('/:courseId', function(req, res) {
       id:courseId
     },
     attributes: [
-      'id', 'title', 'price', 'status', 'rating', 'ratingAmount','type', 'site', 'describle', 'teacherId', 'categoryId',
+      'id', 'title', 'price', 'status', 'rating', 'ratingAmount','type', 'site', 'describe', 'teacherId', 'categoryId',
     ],
     include: [
       {

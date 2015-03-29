@@ -11,23 +11,23 @@ router.get('/', function(req, res, next) {
 		res.send("Not support");
 		return;
 	}
-  	models.CourseRating.findAll({
+  	models.Appointment.findAll({
   		where: {
   			CourseId: courseId
   		},
       limit: pageSize,
       offset: (pageNumber - 1) * pageSize,
       order: orderBy,
-  		attributes: ['rating', 'comment', 'updatedAt'],
+  		attributes: ['updatedAt'],
   		include: [
   			{
   				model: models.User,
-  				as:"commentator",
+  				as:"applicant",
   				attributes: ['id', 'nickname', 'portrait']
   			}
   		]
-  	}).then(function(courseRatings) {
-  		res.json(courseRatings);
+  	}).then(function(courseAppointments) {
+  		res.json(courseAppointments);
   	});
 });
 

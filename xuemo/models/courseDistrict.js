@@ -1,7 +1,7 @@
 "use strict";
 
 module.exports = function(sequelize, DataTypes) {
-  var CourseDistricts = sequelize.define("CourseDistricts", {
+  var CourseDistrict = sequelize.define("CourseDistrict", {
       //No more attributes
   }, {
     timestamps: false,
@@ -11,5 +11,5 @@ module.exports = function(sequelize, DataTypes) {
     }
   });
 
-  return CourseDistricts;
+  return CourseDistrict;
 };
