@@ -62,14 +62,19 @@ router.get('/', function(req, res, next) {
   }).then(function(courses) {
   	res.json(courses);
   });
-});
-
-router.post('/', function(req, res) {
+})
+.post('/', function(req, res) {
   console.log(req.body);
   models.Course.create({
-    title: req.body.title
+    title: req.body.title,
+    price: req.body.price,
+    type: req.body.type,
+    site: req.body.site,
+    describe: req.body.describe,
+    teacherId: req.body.teacherId,
+    categoryId: req.body.categoryId,
   }).then(function(){
-    res.send(req.body);
+    res.status(201).send("Success");
   });
 });
 
