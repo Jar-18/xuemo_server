@@ -11,24 +11,24 @@ router.get('/', function(req, res, next) {
 		res.send("Not support");
 		return;
 	}
-  	models.CourseRating.findAll({
-  		where: {
-  			CourseId: courseId
-  		},
+  models.CourseRating.findAll({
+      where: {
+        CourseId: courseId
+      },
       limit: pageSize,
       offset: (pageNumber - 1) * pageSize,
       order: orderBy,
-  		attributes: ['rating', 'comment', 'updatedAt'],
-  		include: [
-  			{
-  				model: models.User,
-  				as:"commentator",
-  				attributes: ['id', 'nickname', 'portrait']
-  			}
-  		]
-  	}).then(function(courseRatings) {
-  		res.json(courseRatings);
-  	});
+      attributes: ['rating', 'comment', 'updatedAt'],
+      include: [
+        {
+          model: models.User,
+          as:"commentator",
+          attributes: ['id', 'nickname', 'portrait']
+        }
+      ]
+    }).then(function(courseRatings) {
+      res.json(courseRatings);
+  });
 });
 
 router.get('/:courseRatingId', function(req, res) {
