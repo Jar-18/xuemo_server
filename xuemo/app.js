@@ -113,13 +113,13 @@ function initTestData() {
 
   var co = [];
   data.push(co);
-  co[0] = models.Course.build({id:1, title:"教英语，包教包会", price:100, status: 1, teacherId: 1, categoryId: 3, rating:4.0, ratingAmount: 3, type:1, site:1, 
+  co[0] = models.Course.build({id:1, title:"教英语，包教包会", price:100, status: 1, teacherId: 1, categoryId: 3, rating:4.0, ratingAmount: 3,  
     describe:"我也不知道写什么描述啊，我教英语。我也不知道写什么描述啊，我教英语。我也不知道写什么描述啊，我教英语。我也不知道写什么描述啊，我教英语。我也不知道写什么描述啊，我教英语。"});
-  co[1] = models.Course.build({id:2, title:"本人教过很多高三学生去法国", price:200, status: 2, teacherId: 1, categoryId: 4, rating:3.5, ratingAmount: 5, type:2, site:2, 
+  co[1] = models.Course.build({id:2, title:"本人教过很多高三学生去法国", price:200, status: 2, teacherId: 1, categoryId: 4, rating:3.5, ratingAmount: 5,
     describe:"我法语教的还可以。我法语教的还可以。我法语教的还可以。我法语教的还可以。我法语教的还可以。我法语教的还可以。我法语教的还可以。我法语教的还可以。我法语教的还可以。我法语教的还可以。"});
-  co[2] = models.Course.build({id:3, title:"业余时间教羽毛球", price:180, status: 1, teacherId: 1, categoryId: 5, rating:3.7, ratingAmount: 3, type:3, site:3, 
+  co[2] = models.Course.build({id:3, title:"业余时间教羽毛球", price:180, status: 1, teacherId: 1, categoryId: 5, rating:3.7, ratingAmount: 3, 
     describe:"教羽毛球。教羽毛球。教羽毛球。教羽毛球。教羽毛球。教羽毛球。教羽毛球。教羽毛球。教羽毛球。教羽毛球。教羽毛球。教羽毛球。教羽毛球。教羽毛球。教羽毛球。教羽毛球。教羽毛球。教羽毛球。教羽毛球。教羽毛球。"});
-  co[3] = models.Course.build({id:4, title:"英语从此不再难", price:80, status: 1, teacherId: 2, categoryId: 3, rating:4.6, ratingAmount: 8, type:3, site:3, 
+  co[3] = models.Course.build({id:4, title:"英语从此不再难", price:80, status: 1, teacherId: 2, categoryId: 3, rating:4.6, ratingAmount: 8, 
     describe:"Learn English.Learn English.Learn English.Learn English.Learn English.Learn English.Learn English.Learn English.Learn English.Learn English.Learn English."});
 
   var cp = [];
@@ -130,6 +130,16 @@ function initTestData() {
   cp[3] = models.CoursePic.build({id: 4, name: "english2.jpg"});
   cp[4] = models.CoursePic.build({id: 5, name: "english3.jpg"});
   cp[5] = models.CoursePic.build({id: 6, name: "english4.jpg"});
+
+  var cs = [];
+  data.push(cs);
+  cs[0] = models.CourseSite.build({id: 1});
+  cs[1] = models.CourseSite.build({id: 2});
+
+  var ct = [];
+  data.push(ct);
+  ct[0] = models.CourseType.build({id: 1});
+  ct[1] = models.CourseType.build({id: 2});
 
   var cr = [];
   data.push(cr);
@@ -192,6 +202,8 @@ function initTestData() {
     co[1].setRatings([cr[2]]);
     u[1].setAppointments([a[0],a[1]]);
     co[0].setAppointments([a[0],a[1]]);
+    co[0].setSites([cs[0], cs[1]]);
+    co[0].setTypes([ct[0], ct[1]]);
     //Create more courses
     for(var i = 0;i < 10;i++) {
       var index = 4 + i;

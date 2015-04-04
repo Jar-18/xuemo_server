@@ -12,8 +12,8 @@ module.exports = function(sequelize, DataTypes) {
     status: DataTypes.INTEGER,
     rating: DataTypes.FLOAT, //针对评分做的冗余
     ratingAmount: DataTypes.FLOAT, //针对评分做的冗余
-    type: DataTypes.INTEGER, //一对一，小班，大班
-    site: DataTypes.INTEGER, //学生家，老师家，公共场所
+    //type: DataTypes.INTEGER, //一对一，小班，大班
+    //site: DataTypes.INTEGER, //学生家，老师家，公共场所
     describe: DataTypes.STRING,
   }, {
     classMethods: {
@@ -24,6 +24,8 @@ module.exports = function(sequelize, DataTypes) {
         Course.hasMany(models.CourseRating, {as: "ratings"});
         Course.hasMany(models.CoursePic, {as: "pics"});
         Course.hasMany(models.Appointment, {as: "appointments", foreignKey: "courseId"});
+        Course.hasMany(models.CourseSite, {as: "sites"});
+        Course.hasMany(models.CourseType, {as: "types"});
       }
     }
   });

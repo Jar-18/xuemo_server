@@ -11,9 +11,7 @@ module.exports = function(sequelize, DataTypes) {
         type: DataTypes.STRING
       }
   }, {
-    classMethods: {
-      timestamps: false,
-    }
+    timestamps: false
   });
 
   return CoursePic;
