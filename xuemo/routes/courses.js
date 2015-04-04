@@ -64,17 +64,35 @@ router.get('/', function(req, res, next) {
   });
 })
 .post('/', function(req, res) {
+  //transaction
   console.log(req.body);
   models.Course.create({
     title: req.body.title,
     price: req.body.price,
-    type: req.body.type,
-    site: req.body.site,
+    //type: req.body.type,
+    //site: req.body.site,
     describe: req.body.describe,
     teacherId: req.body.teacherId,
     categoryId: req.body.categoryId,
-  }).then(function(){
-    res.status(201).send("Success");
+  }).then(function(course){
+    var sites = req.body.sites.split(',');
+    sites.forEach(function(site) {
+      models.CourseSite.create({
+        site: site
+      }).then(function(courseSite) {
+        course.addSite(courseSite);
+      });
+    });
+    var types = req.body.types.split(',');
+    sites.forEach(function(type) {
+      models.CourseType.create({
+        type: type
+      }).then(function(courseType) {
+        course.addType(courseType);
+      });
+    });
+  }).then(function() {
+      res.status(201).send("Success");
   });
 });
 
