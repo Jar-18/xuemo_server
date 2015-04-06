@@ -2,14 +2,20 @@
 
 module.exports = function(sequelize, DataTypes) {
   var CourseSite = sequelize.define("CourseSite", {
-      id: {
+      id2: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true
       },
-      site: {
-        type: DataTypes.INTEGER
+      id: {
+        type: DataTypes.INTEGER,
+        //primaryKey: true
       },
+      courseId: {
+        type: DataTypes.INTEGER,
+        //primaryKey: true
+      }
+
   }, {
       timestamps: false
   });

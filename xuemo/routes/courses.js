@@ -52,12 +52,12 @@ router.get('/', function(req, res, next) {
       {
         model:models.CourseType,
         as: "types",
-        attributes: ['type']
+        attributes: ['id']
       },
       {
         model:models.CourseSite,
         as: "sites",
-        attributes: ['site']
+        attributes: ['id']
       }
       // {
       //   model:models.CourseRating,
@@ -139,12 +139,12 @@ router.get('/:courseId', function(req, res) {
       {
         model:models.CourseType,
         as: "types",
-        attributes: ['type']
+        attributes: ['id']
       },
       {
         model:models.CourseSite,
         as: "sites",
-        attributes: ['site']
+        attributes: ['id']
       }
     ]
   }).then(function(courses) {

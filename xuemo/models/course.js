@@ -24,8 +24,8 @@ module.exports = function(sequelize, DataTypes) {
         Course.hasMany(models.CourseRating, {as: "ratings"});
         Course.hasMany(models.CoursePic, {as: "pics"});
         Course.hasMany(models.Appointment, {as: "appointments", foreignKey: "courseId"});
-        Course.hasMany(models.CourseSite, {as: "sites"});
-        Course.hasMany(models.CourseType, {as: "types"});
+        Course.hasMany(models.CourseSite, {as: "sites", foreignKey: "courseId"});
+        Course.hasMany(models.CourseType, {as: "types", foreignKey: "courseId"});
       }
     }
   });

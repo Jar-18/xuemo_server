@@ -133,13 +133,13 @@ function initTestData() {
 
   var cs = [];
   data.push(cs);
-  cs[0] = models.CourseSite.build({site: 1});
-  cs[1] = models.CourseSite.build({site: 2});
+  cs[0] = models.CourseSite.build({id: 1});
+  cs[1] = models.CourseSite.build({id: 2});
 
   var ct = [];
   data.push(ct);
-  ct[0] = models.CourseType.build({type: 1});
-  ct[1] = models.CourseType.build({type: 2});
+  ct[0] = models.CourseType.build({id: 1});
+  ct[1] = models.CourseType.build({id: 2});
 
   var cr = [];
   data.push(cr);
