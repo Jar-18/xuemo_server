@@ -21,7 +21,7 @@ router.get('/', function(req, res, next) {
   models.Course.findAll({
     where: wherePart,
     attributes: simple == true ? ['id', 'title', 'price', 'status', 'rating','teacherId', 'categoryId', 'createdAt']
-      : ['id', 'title', 'price', 'status', 'rating', 'type', 'site', 'describe', 'teacherId', 'categoryId', 'createdAt'],
+      : ['id', 'title', 'price', 'status', 'rating', 'describe', 'teacherId', 'categoryId', 'createdAt'],
     limit: pageSize,
     offset: (pageNumber - 1) * pageSize,
     order: orderBy,
@@ -49,6 +49,16 @@ router.get('/', function(req, res, next) {
         //     [models.sequelize.literal('(SELECT TOP 1 "name" FROM "CoursePics" WHERE "Course"."id" = "CoursePics"."courseId")'), 'name']
         // ])
       },
+      {
+        model:models.CourseType,
+        as: "types",
+        attributes: ['type']
+      },
+      {
+        model:models.CourseSite,
+        as: "sites",
+        attributes: ['site']
+      }
       // {
       //   model:models.CourseRating,
       //   as: "ratings",
@@ -103,7 +113,7 @@ router.get('/:courseId', function(req, res) {
       id:courseId
     },
     attributes: [
-      'id', 'title', 'price', 'status', 'rating', 'ratingAmount','type', 'site', 'describe', 'teacherId', 'categoryId',
+      'id', 'title', 'price', 'status', 'rating', 'ratingAmount','describe', 'teacherId', 'categoryId',
     ],
     include: [
       {
@@ -125,6 +135,16 @@ router.get('/:courseId', function(req, res) {
         model:models.CoursePic,
         as: "pics",
         attributes: ['name'],
+      },
+      {
+        model:models.CourseType,
+        as: "types",
+        attributes: ['type']
+      },
+      {
+        model:models.CourseSite,
+        as: "sites",
+        attributes: ['site']
       }
     ]
   }).then(function(courses) {
