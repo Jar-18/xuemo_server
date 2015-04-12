@@ -70,7 +70,7 @@ router.get('/', function(req, res, next) {
       // }
   	],
   }).then(function(courses) {
-  	res.json(courses);
+  	res.json('Success');
   });
 })
 .post('/', function(req, res) {
@@ -85,24 +85,28 @@ router.get('/', function(req, res, next) {
     teacherId: req.body.teacherId,
     categoryId: req.body.categoryId,
   }).then(function(course){
-    var sites = req.body.sites.split(',');
-    sites.forEach(function(site) {
+    var sites = req.body.sites;
+    if(sites != null) {
+      sites.forEach(function(site) {
       models.CourseSite.create({
-        site: site
+        id: site.id
       }).then(function(courseSite) {
         course.addSite(courseSite);
       });
     });
-    var types = req.body.types.split(',');
-    sites.forEach(function(type) {
+    }
+    var types = req.body.types;
+    if(types != null) {
+      sites.forEach(function(type) {
       models.CourseType.create({
-        type: type
+        id: type.id
       }).then(function(courseType) {
         course.addType(courseType);
       });
     });
+    }
   }).then(function() {
-      res.status(201).send("Success");
+      res.status(201).json({status:'succ'});
   });
 });
 

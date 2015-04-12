@@ -10,9 +10,9 @@ module.exports = function(sequelize, DataTypes) {
       id: {
         type: DataTypes.INTEGER
       },
-      type: {
-        type: DataTypes.INTEGER
-      },
+      // type: {
+      //   type: DataTypes.INTEGER
+      // },
   }, {
       timestamps: false  
   });

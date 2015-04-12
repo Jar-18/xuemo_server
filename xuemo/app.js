@@ -7,6 +7,8 @@ var bodyParser = require('body-parser');
 
 var cors = require('cors');
 
+var multer = require('multer');
+
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var categories = require('./routes/categories');
@@ -14,6 +16,7 @@ var districts = require('./routes/districts');
 var courses = require('./routes/courses');
 var courseRatings = require('./routes/courseRatings');
 var appointments = require('./routes/appointments');
+var photos = require('./routes/photos');
 
 var models = require("./models");
 
@@ -32,6 +35,15 @@ app.set('view engine', 'jade');
 // uncomment after placing your favicon in /public
 //app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
+
+// app.use(bodyParser({
+//     uploadDir: __dirname + '/uploads',
+//     keepExtensions: true
+// }));
+// app.use(express.methodOverride());
+
+app.use(multer({dest:'./uploads/'}));
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
@@ -44,6 +56,7 @@ app.use('/districts', districts);
 app.use('/courses', courses);
 app.use('/courseRatings', courseRatings);
 app.use('/appointments', appointments);
+app.use('/photos', photos);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
