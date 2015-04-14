@@ -5,7 +5,7 @@ var router = express.Router();
 router.post('/', function(req, res, next) {
   	console.log('post');
 
-  	console.log(req.files);
+  	console.log(req.body);
   	
 	res.status('200').send(req.files.file.name);
 

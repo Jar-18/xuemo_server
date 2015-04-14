@@ -70,7 +70,7 @@ router.get('/', function(req, res, next) {
       // }
   	],
   }).then(function(courses) {
-  	res.json('Success');
+  	res.json(courses);
   });
 })
 .post('/', function(req, res) {

@@ -9,6 +9,11 @@ var cors = require('cors');
 
 var multer = require('multer');
 
+//qiniu
+var qiniu = require('qiniu');
+qiniu.conf.ACCESS_KEY = '_4ALATdVq5H3aEzCAK7OzF19z4mVXCzIhrotqMTp';
+qiniu.conf.SECRET_KEY = 'IjZp-7-tMvc5gxKwtDKyWCw9sAuuBrW3nmApqLaD';
+
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var categories = require('./routes/categories');
@@ -17,6 +22,8 @@ var courses = require('./routes/courses');
 var courseRatings = require('./routes/courseRatings');
 var appointments = require('./routes/appointments');
 var photos = require('./routes/photos');
+
+var files = require('./routes/files');
 
 var models = require("./models");
 
@@ -57,6 +64,8 @@ app.use('/courses', courses);
 app.use('/courseRatings', courseRatings);
 app.use('/appointments', appointments);
 app.use('/photos', photos);
+
+app.use('/files', files);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
