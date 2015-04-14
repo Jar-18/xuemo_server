@@ -76,38 +76,72 @@ router.get('/', function(req, res, next) {
 .post('/', function(req, res) {
   //transaction
   console.log(req.body);
-  models.Course.create({
-    title: req.body.title,
-    price: req.body.price,
-    //type: req.body.type,
-    //site: req.body.site,
-    describe: req.body.describe,
-    teacherId: req.body.teacherId,
-    categoryId: req.body.categoryId,
-  }).then(function(course){
-    var sites = req.body.sites;
-    if(sites != null) {
-      sites.forEach(function(site) {
-      models.CourseSite.create({
-        id: site.id
-      }).then(function(courseSite) {
-        course.addSite(courseSite);
-      });
+
+  models.sequelize.transaction(function(t) {
+    return models.Course.create({
+      title: req.body.title,
+      price: req.body.price,
+      describe: req.body.describe,
+      teacherId: req.body.teacherId,
+      categoryId: req.body.categoryId,
+    }, {transaction: t}).then(function(course) {
+      var sites = req.body.sites;
+      if(sites != null) {
+        sites.forEach(function(site) {
+          models.CourseSite.create({
+            id: site.id,
+            couseId: course.id
+          }, {transaction: t});
+        });
+      }
+      var types = req.body.types;
+      if(types != null) {
+        sites.forEach(function(type) {
+          models.CourseType.create({
+            id: type.id,
+            courseId: course.id
+          }, {transaction: t});
+        });
+      }
     });
-    }
-    var types = req.body.types;
-    if(types != null) {
-      sites.forEach(function(type) {
-      models.CourseType.create({
-        id: type.id
-      }).then(function(courseType) {
-        course.addType(courseType);
-      });
-    });
-    }
-  }).then(function() {
-      res.status(201).json({status:'succ'});
+  }).then(function(result) {
+    res.status(201).json({status:'succ'});
+  }).catch(function(err) {
+    console.log(err);
   });
+
+  // models.Course.create({
+  //   title: req.body.title,
+  //   price: req.body.price,
+  //   //type: req.body.type,
+  //   //site: req.body.site,
+  //   describe: req.body.describe,
+  //   teacherId: req.body.teacherId,
+  //   categoryId: req.body.categoryId,
+  // }).then(function(course){
+  //   var sites = req.body.sites;
+  //   if(sites != null) {
+  //     sites.forEach(function(site) {
+  //     models.CourseSite.create({
+  //       id: site.id
+  //     }).then(function(courseSite) {
+  //       course.addSite(courseSite);
+  //     });
+  //   });
+  //   }
+  //   var types = req.body.types;
+  //   if(types != null) {
+  //     sites.forEach(function(type) {
+  //     models.CourseType.create({
+  //       id: type.id
+  //     }).then(function(courseType) {
+  //       course.addType(courseType);
+  //     });
+  //   });
+  //   }
+  // }).then(function() {
+  //     res.status(201).json({status:'succ'});
+  // });
 });
 
 router.get('/:courseId', function(req, res) {

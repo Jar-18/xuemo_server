@@ -153,16 +153,6 @@ function initTestData() {
   cp[4] = models.CoursePic.build({id: 5, name: "english3.jpg"});
   cp[5] = models.CoursePic.build({id: 6, name: "english4.jpg"});
 
-  var cs = [];
-  data.push(cs);
-  cs[0] = models.CourseSite.build({id: 1});
-  cs[1] = models.CourseSite.build({id: 2});
-
-  var ct = [];
-  data.push(ct);
-  ct[0] = models.CourseType.build({id: 1});
-  ct[1] = models.CourseType.build({id: 2});
-
   var cr = [];
   data.push(cr);
   cr[0] = models.CourseRating.build({id:1, rating: 4, comment:"教的还过得去"});
@@ -224,8 +214,12 @@ function initTestData() {
     co[1].setRatings([cr[2]]);
     u[1].setAppointments([a[0],a[1]]);
     co[0].setAppointments([a[0],a[1]]);
-    co[0].setSites([cs[0], cs[1]]);
-    co[0].setTypes([ct[0], ct[1]]);
+
+    models.CourseSite.create({courseId: co[0].id, id: 1});
+    models.CourseSite.create({courseId: co[0].id, id: 2});
+    models.CourseType.create({courseId: co[0].id, id: 2});
+    models.CourseType.create({courseId: co[0].id, id: 3});
+
     //Create more courses
     for(var i = 0;i < 10;i++) {
       var index = 4 + i;
