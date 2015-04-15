@@ -12,11 +12,14 @@ module.exports = function(sequelize, DataTypes) {
       },
       comment: {
         type: DataTypes.STRING
+      },
+      commentatorId: {
+        type: DataTypes.INTEGER
       }
   }, {
     classMethods: {
       associate: function(models) {
-        models.CourseRating.belongsTo(models.User, {as:"commentator"});
+        models.CourseRating.belongsTo(models.User, {as:"commentator", foreignKey:"commentatorId"});
       }
     }
   });

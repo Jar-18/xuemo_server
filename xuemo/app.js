@@ -135,13 +135,13 @@ function initTestData() {
 
   var co = [];
   data.push(co);
-  co[0] = models.Course.build({id:1, title:"教英语，包教包会", price:100, status: 1, teacherId: 1, categoryId: 3, rating:4.0, ratingAmount: 3,  
+  co[0] = models.Course.build({id:1, title:"教英语，包教包会", price:100, status: 1, teacherId: 1, categoryId: 3, rating:4.0, ratingCount: 3,  
     describe:"我也不知道写什么描述啊，我教英语。我也不知道写什么描述啊，我教英语。我也不知道写什么描述啊，我教英语。我也不知道写什么描述啊，我教英语。我也不知道写什么描述啊，我教英语。"});
-  co[1] = models.Course.build({id:2, title:"本人教过很多高三学生去法国", price:200, status: 2, teacherId: 1, categoryId: 4, rating:3.5, ratingAmount: 5,
+  co[1] = models.Course.build({id:2, title:"本人教过很多高三学生去法国", price:200, status: 2, teacherId: 1, categoryId: 4, rating:3.5, ratingCount: 5,
     describe:"我法语教的还可以。我法语教的还可以。我法语教的还可以。我法语教的还可以。我法语教的还可以。我法语教的还可以。我法语教的还可以。我法语教的还可以。我法语教的还可以。我法语教的还可以。"});
-  co[2] = models.Course.build({id:3, title:"业余时间教羽毛球", price:180, status: 1, teacherId: 1, categoryId: 5, rating:3.7, ratingAmount: 3, 
+  co[2] = models.Course.build({id:3, title:"业余时间教羽毛球", price:180, status: 1, teacherId: 1, categoryId: 5, rating:3.7, ratingCount: 3, 
     describe:"教羽毛球。教羽毛球。教羽毛球。教羽毛球。教羽毛球。教羽毛球。教羽毛球。教羽毛球。教羽毛球。教羽毛球。教羽毛球。教羽毛球。教羽毛球。教羽毛球。教羽毛球。教羽毛球。教羽毛球。教羽毛球。教羽毛球。教羽毛球。"});
-  co[3] = models.Course.build({id:4, title:"英语从此不再难", price:80, status: 1, teacherId: 2, categoryId: 3, rating:4.6, ratingAmount: 8, 
+  co[3] = models.Course.build({id:4, title:"英语从此不再难", price:80, status: 1, teacherId: 2, categoryId: 3, rating:4.6, ratingCount: 8, 
     describe:"Learn English.Learn English.Learn English.Learn English.Learn English.Learn English.Learn English.Learn English.Learn English.Learn English.Learn English."});
 
   var cp = [];
@@ -156,7 +156,7 @@ function initTestData() {
   var cr = [];
   data.push(cr);
   cr[0] = models.CourseRating.build({id:1, rating: 4, comment:"教的还过得去"});
-  cr[1] = models.CourseRating.build({id:2, rating: 4.6, comment:"人很好"});
+  cr[1] = models.CourseRating.build({id:2, rating: 3, comment:"人很好"});
   cr[2] = models.CourseRating.build({id:3, rating: 5, comment:"这是我见过的最好的老师"});
 
   var a = [];
@@ -176,7 +176,7 @@ function initTestData() {
   //Create more courses
   for(var i = 0;i < 10;i++) {
       var index = 4 + i;
-      co[index] = models.Course.build({id:index + 1, title:"更多的课程测试分页", price:100, status: 1, teacherId: 1, categoryId: 3, rating:4.0, ratingAmount: 5, type:1, site:1, describle:"就是没有描述。"});
+      co[index] = models.Course.build({id:index + 1, title:"更多的课程测试分页", price:100, status: 1, teacherId: 1, categoryId: 3, rating:4.0, ratingCount: 5, type:1, site:1, describle:"就是没有描述。"});
       chainer.add(co[index].save());
   }
 

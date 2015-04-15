@@ -82,8 +82,8 @@ router.get('/', function(req, res, next) {
       title: req.body.title,
       price: req.body.price,
       describe: req.body.describe,
-      teacherId: req.body.teacherId,
-      categoryId: req.body.categoryId,
+      teacherId: req.body.teacher.id,
+      categoryId: req.body.category.id,
     }, {transaction: t}).then(function(course) {
       var sites = req.body.sites;
       if(sites != null) {
@@ -103,9 +103,18 @@ router.get('/', function(req, res, next) {
           }, {transaction: t});
         });
       }
+      var districts = req.body.districts;
+      if(districts != null) {
+        districts.forEach(function(district) {
+          models.CourseDistrict.create({
+            CourseId: course.id,
+            DistrictId: district.id
+          });
+        })
+      }
     });
   }).then(function(result) {
-    res.status(201).json({status:'succ'});
+    res.status(201).json({result:'succ'});
   }).catch(function(err) {
     console.log(err);
   });
@@ -217,9 +226,42 @@ router.get('/:courseId/courseRatings', function(req, res) {
     }).then(function(courseRatings) {
       res.json(courseRatings)
     });
-}).post('/courseId/courseRatings', function(req, res) {
+}).post('/:courseId/courseRatings', function(req, res) {
   models.sequelize.transaction(function(t) {
-
+    return models.CourseRating.create({
+      rating: req.body.rating,
+      comment: req.body.comment,
+      CourseId: req.params.courseId,
+      commentatorId: req.body.commentatorId
+    }, {transaction: t}).then(function(courseRating) {
+      //Update average rating for a course
+      return models.CourseRating.sum('rating', {
+        where: {
+          CourseId: req.params.courseId
+        }
+      }, {transaction: t}).then(function(originalRatingSum) {
+        return models.CourseRating.count('rating', {
+          where: {
+            CourseId: req.params.courseId
+          }
+        }, {transaction: t}).then(function(ratingCount) {
+          console.log("count "+ratingCount);
+          console.log("sum "+originalRatingSum);
+          return models.Course.find({
+            id: req.params.courseId
+          }, {transaction: t}).then(function(course) {
+            return course.updateAttributes({
+              rating: (originalRatingSum + courseRating.rating) / ratingCount,
+              ratingCount: ratingCount
+            }, {transaction: t});
+          });
+        });
+      });
+    });
+  }).then(function(result) {
+    res.status(201).json({result: 'Success'});
+  }).catch(function(message) {
+    console.log(message);
   });
 });
 
