@@ -9,6 +9,9 @@ module.exports = function(sequelize, DataTypes) {
       },
       name: {
         type: DataTypes.STRING
+      },
+      courseId: {
+        type: DataTypes.INTEGER
       }
   }, {
     timestamps: false

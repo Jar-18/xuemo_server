@@ -9,9 +9,18 @@ module.exports = function(sequelize, DataTypes) {
     },
     title: DataTypes.STRING,
     price: DataTypes.INTEGER,
-    status: DataTypes.INTEGER,
-    rating: DataTypes.DECIMAL(10,2), //针对评分做的冗余
-    ratingCount: DataTypes.INTEGER, //针对评分做的冗余
+    status: {
+      type: DataTypes.INTEGER,
+      defaultValue: 1
+    },
+    rating: { //针对评分做的冗余
+      type: DataTypes.DECIMAL(10,2), 
+      defaultValue: 0
+    },
+    ratingCount: {  //针对评分做的冗余
+      type: DataTypes.INTEGER, 
+      defaultValue: 0
+    },
     describe: DataTypes.STRING,
   }, {
     classMethods: {
@@ -20,7 +29,7 @@ module.exports = function(sequelize, DataTypes) {
         Course.belongsTo(models.Category, {as: "category"});
         Course.belongsToMany(models.District, {as: "districts", through: models.CourseDistrict});
         Course.hasMany(models.CourseRating, {as: "ratings"});
-        Course.hasMany(models.CoursePic, {as: "pics"});
+        Course.hasMany(models.CoursePic, {as: "pics", foreignKey:"courseId"});
         Course.hasMany(models.Appointment, {as: "appointments", foreignKey: "courseId"});
         Course.hasMany(models.CourseSite, {as: "sites", foreignKey: "courseId"});
         Course.hasMany(models.CourseType, {as: "types", foreignKey: "courseId"});

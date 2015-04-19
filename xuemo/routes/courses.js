@@ -20,8 +20,8 @@ router.get('/', function(req, res, next) {
 
   models.Course.findAll({
     where: wherePart,
-    attributes: simple == true ? ['id', 'title', 'price', 'status', 'rating','teacherId', 'categoryId', 'createdAt']
-      : ['id', 'title', 'price', 'status', 'rating', 'describe', 'teacherId', 'categoryId', 'createdAt'],
+    attributes: simple == true ? ['id', 'title', 'price', 'status', 'rating','ratingCount','teacherId', 'categoryId', 'createdAt']
+      : ['id', 'title', 'price', 'status', 'rating', 'ratingCount','describe', 'teacherId', 'categoryId', 'createdAt'],
     limit: pageSize,
     offset: (pageNumber - 1) * pageSize,
     order: orderBy,
@@ -85,6 +85,8 @@ router.get('/', function(req, res, next) {
       teacherId: req.body.teacher.id,
       categoryId: req.body.category.id,
     }, {transaction: t}).then(function(course) {
+      //Temp
+      courseId = course.id;
       var sites = req.body.sites;
       if(sites != null) {
         sites.forEach(function(site) {
@@ -109,48 +111,15 @@ router.get('/', function(req, res, next) {
           models.CourseDistrict.create({
             CourseId: course.id,
             DistrictId: district.id
-          });
+          }, {transaction: t});
         })
       }
     });
   }).then(function(result) {
-    res.status(201).json({result:'succ'});
+    res.status(201).json({status:"Success",courseId:courseId});
   }).catch(function(err) {
-    console.log(err);
+    res.status(500).json({err:err});
   });
-
-  // models.Course.create({
-  //   title: req.body.title,
-  //   price: req.body.price,
-  //   //type: req.body.type,
-  //   //site: req.body.site,
-  //   describe: req.body.describe,
-  //   teacherId: req.body.teacherId,
-  //   categoryId: req.body.categoryId,
-  // }).then(function(course){
-  //   var sites = req.body.sites;
-  //   if(sites != null) {
-  //     sites.forEach(function(site) {
-  //     models.CourseSite.create({
-  //       id: site.id
-  //     }).then(function(courseSite) {
-  //       course.addSite(courseSite);
-  //     });
-  //   });
-  //   }
-  //   var types = req.body.types;
-  //   if(types != null) {
-  //     sites.forEach(function(type) {
-  //     models.CourseType.create({
-  //       id: type.id
-  //     }).then(function(courseType) {
-  //       course.addType(courseType);
-  //     });
-  //   });
-  //   }
-  // }).then(function() {
-  //     res.status(201).json({status:'succ'});
-  // });
 });
 
 router.get('/:courseId', function(req, res) {
@@ -160,7 +129,7 @@ router.get('/:courseId', function(req, res) {
       id:courseId
     },
     attributes: [
-      'id', 'title', 'price', 'status', 'rating', 'ratingAmount','describe', 'teacherId', 'categoryId',
+      'id', 'title', 'price', 'status', 'rating', 'ratingCount','describe', 'teacherId', 'categoryId',
     ],
     include: [
       {
@@ -196,6 +165,37 @@ router.get('/:courseId', function(req, res) {
     ]
   }).then(function(courses) {
     res.json(courses);
+  });
+})
+.put('/:courseId', function(req, res) {
+  models.sequelize.transaction(function(t) {
+    return models.Course.find({
+      where: {
+        id: req.params.courseId
+      }
+    }, {transaction: t})
+      .then(function(course) {
+        return course.updateAttributes({
+          describe: req.body.describe
+        }, {transaction: t})
+          .then(function(course) {
+            var pics = req.body.pics;
+            if(pics != null) {
+              pics.forEach(function(pic) {
+                models.CoursePic.create({
+                  courseId: req.params.courseId,
+                  name: pic.id
+                }, {transaction: t});
+              });
+            }
+          });
+      });
+  })
+  .then(function(result) {
+    res.status(201).json({status: 'Success'});
+  })
+  .catch(function(err) {
+    res.status(500).json({err:err});
   });
 });
 
@@ -259,9 +259,9 @@ router.get('/:courseId/courseRatings', function(req, res) {
       });
     });
   }).then(function(result) {
-    res.status(201).json({result: 'Success'});
+    res.status(201).json({status: 'Success'});
   }).catch(function(message) {
-    console.log(message);
+    res.status(500).json({err:err});
   });
 });
 
