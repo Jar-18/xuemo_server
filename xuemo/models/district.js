@@ -9,12 +9,14 @@ module.exports = function(sequelize, DataTypes) {
     },
     code: DataTypes.INTEGER,
     name: DataTypes.STRING,
-    fullName:DataTypes.STRING
+    fullName: DataTypes.STRING
   }, {
     timestamps: false,
     classMethods: {
       associate: function(models) {
-        District.belongsTo(District, {as: "parent"});
+        District.belongsTo(District, {
+          as: "parent"
+        });
       }
     }
   });

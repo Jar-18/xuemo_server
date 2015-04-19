@@ -3,15 +3,15 @@ var router = express.Router();
 
 
 router.post('/', function(req, res, next) {
-  	console.log('post');
+	console.log('post');
 
-  	console.log(req.body);
-  	
+	console.log(req.body);
+
 	res.status('200').send(req.files.file.name);
 
 }).get('/', function(req, res) {
 	console.log('get');
-  	res.send('2');
+	res.send('2');
 });
 
 module.exports = router;

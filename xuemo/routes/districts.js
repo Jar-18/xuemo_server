@@ -3,10 +3,10 @@ var express = require('express');
 var router = express.Router();
 
 router.get('/', function(req, res, next) {
-  //res.send('respond with a resource');
-  models.District.findAll().then(function(users) {
-  	res.json(users);
-  });
+	//res.send('respond with a resource');
+	models.District.findAll().then(function(users) {
+		res.json(users);
+	});
 });
 
 module.exports = router;

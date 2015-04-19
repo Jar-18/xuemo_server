@@ -5,9 +5,6 @@ module.exports = function(sequelize, DataTypes) {
     //No more attributes
   }, {
     timestamps: false,
-    classMethods: {
-      associate: function(models) {}
-    }
   });
 
   return CourseDistrict;

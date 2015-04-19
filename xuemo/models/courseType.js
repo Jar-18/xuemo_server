@@ -2,14 +2,14 @@
 
 module.exports = function(sequelize, DataTypes) {
   var CourseType = sequelize.define("CourseType", {
-      id: {
-        type: DataTypes.INTEGER
-      },
-      // type: {
-      //   type: DataTypes.INTEGER
-      // },
+    id: {
+      type: DataTypes.INTEGER
+    },
+    courseId: {
+      type: DataTypes.INTEGER
+    }
   }, {
-      timestamps: false  
+    timestamps: false
   });
 
   return CourseType;
