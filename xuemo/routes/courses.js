@@ -256,7 +256,7 @@ router.get('/:courseId/courseRatings', function(req, res) {
       }, {
         transaction: t
       }).then(function(originalRatingSum) {
-        return models.CourseRating.count('rating', {
+        return models.CourseRating.count({
           where: {
             CourseId: req.params.courseId
           }
@@ -270,9 +270,10 @@ router.get('/:courseId/courseRatings', function(req, res) {
           }, {
             transaction: t
           }).then(function(course) {
+            var originalRatingSumNum = (isNaN(originalRatingSum) ? 0 : originalRatingSum);
             return course.updateAttributes({
-              rating: (originalRatingSum + courseRating.rating) / ratingCount,
-              ratingCount: ratingCount
+              rating: (originalRatingSumNum + courseRating.rating) / (ratingCount + 1),
+              ratingCount: (ratingCount + 1)
             }, {
               transaction: t
             });
@@ -284,9 +285,9 @@ router.get('/:courseId/courseRatings', function(req, res) {
     res.status(201).json({
       status: 'Success'
     });
-  }).catch(function(message) {
+  }).catch(function(err) {
     res.status(500).json({
-      err: err
+      err: ''+err
     });
   });
 });
