@@ -84,39 +84,42 @@ router.get('/', function(req, res, next) {
       }).then(function(course) {
         //Temp
         courseId = course.id;
+        var promiseArr = [];
         var sites = req.body.sites;
         if (sites != null) {
+          console.log(""+sites);
           sites.forEach(function(site) {
-            models.CourseSite.create({
+            promiseArr.push(models.CourseSite.create({
               id: site.id,
-              couseId: course.id
+              courseId: course.id
             }, {
               transaction: t
-            });
+            }));
           });
         }
         var types = req.body.types;
         if (types != null) {
-          sites.forEach(function(type) {
-            models.CourseType.create({
+          types.forEach(function(type) {
+            promiseArr.push(models.CourseType.create({
               id: type.id,
               courseId: course.id
             }, {
               transaction: t
-            });
+            }));
           });
         }
         var districts = req.body.districts;
         if (districts != null) {
           districts.forEach(function(district) {
-            models.CourseDistrict.create({
+            promiseArr.push(models.CourseDistrict.create({
               CourseId: course.id,
               DistrictId: district.id
             }, {
               transaction: t
-            });
+            }));
           })
         }
+        return models.sequelize.Promise.all(promiseArr);
       });
     }).then(function(result) {
       res.status(201).json({
@@ -125,7 +128,7 @@ router.get('/', function(req, res, next) {
       });
     }).catch(function(err) {
       res.status(500).json({
-        err: err
+        err: ""+err
       });
     });
   });
@@ -178,24 +181,24 @@ router.get('/:courseId', function(req, res) {
             transaction: t
           })
           .then(function(course) {
-            return course.updateAttributes({
+            var promiseArr = [];
+            promiseArr.push(course.updateAttributes({
                 describe: req.body.describe
               }, {
                 transaction: t
-              })
-              .then(function(course) {
-                var pics = req.body.pics;
-                if (pics != null) {
-                  pics.forEach(function(pic) {
-                    models.CoursePic.create({
-                      courseId: req.params.courseId,
-                      name: pic.id
-                    }, {
-                      transaction: t
-                    });
-                  });
-                }
+              }));
+            var pics = req.body.pics;
+            if (pics != null) {
+              pics.forEach(function(pic) {
+                promiseArr.push(models.CoursePic.create({
+                  courseId: req.params.courseId,
+                  name: pic.id
+                  }, {
+                    transaction: t
+                  }));
               });
+            }
+            return models.sequelize.Promise.all(promiseArr);
           });
       })
       .then(function(result) {
