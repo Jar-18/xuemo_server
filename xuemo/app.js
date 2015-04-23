@@ -125,14 +125,27 @@ function initTestData() {
           gender: 1,
           age: 22,
           portrait: "jar.jpg",
-          motto: "无忧无虑的程序猿"
+          motto: "无忧无虑的程序猿",
+          birthday: "1992-10-30",
+          constellation: 1,
         });
         u[1] = models.User.build({
           nickname: "Alice",
           gender: 0,
           age: 18,
           portrait: "alice.jpg",
-          motoo: "我为什么存在？"
+          motto: "我为什么存在？",
+          birthday: "1992-2-18",
+          constellation: 2,
+        });
+        u[2] = models.User.build({
+          nickname: "Bob",
+          gender: 1,
+          age: 25,
+          portrait: "bob.jpg",
+          motto: "嘿嘿嘿，嘻嘻嘻",
+          birthday: "1995-12-21",
+          constellation: 3,
         });
 
         var d = [];
@@ -331,6 +344,24 @@ function initTestData() {
         chainer.run().then(function() {
           console.log("-----Creating relatioships...");
           u[1].setRatings([cr[0], cr[1], cr[2]]);
+          u[0].addFollower(u[1]);
+          u[0].addAttention(u[1]);
+          u[0].addFollower(u[2]);
+          u[1].addFollower(u[2]);
+          u[1].addAttention(u[2]);
+          u[0].setDistrict(d[3]);
+          models.Interest.create({
+            id: 1,
+            userId: 1
+          });
+          models.Interest.create({
+            id: 2,
+            userId: 1
+          });
+          models.Interest.create({
+            id: 3,
+            userId: 1
+          });
           d[0].setParent(d[0]);
           d[1].setParent(d[0]);
           d[2].setParent(d[0]);

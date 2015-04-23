@@ -11,7 +11,38 @@ router.get('/', function(req, res, next) {
 
 router.get('/:userId', function(req, res) {
 	models.User.find(req.params.userId).then(function(user) {
-		res.json(user);
+		models.User.find({
+			where: {
+				id: req.params.userId
+			},
+			include: [{
+				model: models.Interest,
+				as: "interests",
+				attributes: ['id']
+			}, 
+			{
+				model: models.District,
+				as: "district",
+				attributes: ['id', 'name', 'fullName']
+			}
+			]
+		}).then(function(user) {
+			models.Follower.count({
+				where: {
+					followerId: req.params.userId
+				}
+			}).then(function(attentionCount) {
+				user.dataValues.attentionCount = attentionCount;
+				models.Follower.count({
+					where: {
+						attentionId: req.params.userId
+					}
+				}).then(function(followerCount) {
+					user.dataValues.followerCount = followerCount;
+					res.json(user);
+				});
+			});
+		});
 	});
 })
 
