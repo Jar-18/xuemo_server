@@ -13,7 +13,7 @@ router.get('/', function(req, res, next) {
   }
   models.CourseRating.findAll({
     where: {
-      CourseId: courseId
+      courseId: courseId
     },
     limit: pageSize,
     offset: (pageNumber - 1) * pageSize,

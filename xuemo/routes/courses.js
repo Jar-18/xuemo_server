@@ -100,8 +100,8 @@ router.get('/', function(req, res, next) {
         if (districts != null) {
           districts.forEach(function(district) {
             promiseArr.push(models.CourseDistrict.create({
-              CourseId: course.id,
-              DistrictId: district.id
+              courseId: course.id,
+              districtId: district.id
             }, {
               transaction: t
             }));
@@ -212,7 +212,7 @@ router.get('/:courseId/courseRatings', function(req, res) {
   }
   models.CourseRating.findAll({
     where: {
-      CourseId: courseId
+      courseId: courseId
     },
     limit: pageSize,
     offset: (pageNumber - 1) * pageSize,
@@ -231,7 +231,7 @@ router.get('/:courseId/courseRatings', function(req, res) {
     return models.CourseRating.create({
       rating: req.body.rating,
       comment: req.body.comment,
-      CourseId: req.params.courseId,
+      courseId: req.params.courseId,
       commentatorId: req.body.commentatorId
     }, {
       transaction: t
@@ -239,14 +239,14 @@ router.get('/:courseId/courseRatings', function(req, res) {
       //Update average rating for a course
       return models.CourseRating.sum('rating', {
         where: {
-          CourseId: req.params.courseId
+          courseId: req.params.courseId
         }
       }, {
         transaction: t
       }).then(function(originalRatingSum) {
         return models.CourseRating.count({
           where: {
-            CourseId: req.params.courseId
+            courseId: req.params.courseId
           }
         }, {
           transaction: t
@@ -291,7 +291,7 @@ router.get('/:courseId/appointments', function(req, res) {
   }
   models.Appointment.findAll({
     where: {
-      CourseId: courseId
+      courseId: courseId
     },
     limit: pageSize,
     offset: (pageNumber - 1) * pageSize,

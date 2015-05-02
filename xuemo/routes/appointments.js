@@ -13,7 +13,7 @@ router.get('/', function(req, res, next) {
   }
   models.Appointment.findAll({
     where: {
-      CourseId: courseId
+      courseId: courseId
     },
     limit: pageSize,
     offset: (pageNumber - 1) * pageSize,

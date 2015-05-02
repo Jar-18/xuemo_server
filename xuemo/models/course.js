@@ -33,10 +33,12 @@ module.exports = function(sequelize, DataTypes) {
         });
         Course.belongsToMany(models.District, {
           as: "districts",
-          through: models.CourseDistrict
+          through: models.CourseDistrict,
+          foreignKey: "courseId"
         });
         Course.hasMany(models.CourseRating, {
-          as: "ratings"
+          as: "ratings",
+          foreignKey: "courseId"
         });
         Course.hasMany(models.CoursePic, {
           as: "pics",

@@ -7,7 +7,12 @@ module.exports = function(sequelize, DataTypes) {
       primaryKey: true,
       autoIncrement: true
     },
-    status: DataTypes.INTEGER //TBD
+    courseId: {
+      type: DataTypes.INTEGER
+    },
+    status: {
+      type: DataTypes.INTEGER
+    }
   }, {
     timestamps: true,
     classMethods: {

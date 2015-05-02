@@ -7,6 +7,9 @@ module.exports = function(sequelize, DataTypes) {
       primaryKey: true,
       autoIncrement: true
     },
+    courseId: {
+      type: DataTypes.INTEGER
+    },
     rating: {
       type: DataTypes.FLOAT
     },
