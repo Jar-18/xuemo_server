@@ -9,7 +9,6 @@ frisby.globalSetup({ // globalSetup is for ALL requests
 	}
 });
 
-console.log(config);
 frisby.create('Create course in step 1')
 	.post(config.HOST_URL + '/courses', {
 		title: "Course created by frisby",
