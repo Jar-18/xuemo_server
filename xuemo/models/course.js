@@ -31,7 +31,7 @@ module.exports = function(sequelize, DataTypes) {
         Course.belongsTo(models.Category, {
           as: "category"
         });
-        Course.belongsToMany(models.District, {
+        Course.hasMany(models.District, {
           as: "districts",
           through: models.CourseDistrict,
           foreignKey: "courseId"

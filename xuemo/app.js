@@ -102,7 +102,6 @@ app.use(function(err, req, res, next) {
 
 //create clean sample data every time
 var data = require('./test/data');
-data.initTestData();
+data.createInitData();
 
 module.exports = app;
-

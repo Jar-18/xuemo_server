@@ -17,7 +17,7 @@ module.exports = function(sequelize, DataTypes) {
         District.belongsTo(District, {
           as: "parent"
         });
-        District.belongsToMany(models.Course, {
+        District.hasMany(models.Course, {
           through: models.CourseDistrict,
           foreignKey: "districtId"
         });
