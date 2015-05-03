@@ -47,6 +47,11 @@ module.exports = function(sequelize, DataTypes) {
           as: "district",
           foreignKey: "districtId"
         });
+        User.hasMany(models.Activity, {
+          as: "activities",
+          through: models.ActivityAttendant,
+          foreignKey: "attendantId"
+        });
       }
     }
   });
