@@ -15,6 +15,7 @@ module.exports = function(sequelize, DataTypes) {
     categoryId: DataTypes.INTEGER,
     hostId: DataTypes.INTEGER,
     describe: DataTypes.STRING,
+    districtId: DataTypes.INTEGER,
     location: DataTypes.STRING,
     longitude: DataTypes.FLOAT, //经度
     dimensionality: DataTypes.FLOAT, //纬度
@@ -27,6 +28,10 @@ module.exports = function(sequelize, DataTypes) {
           as: "category",
           foreignKey: "categoryId"
         });
+        Activity.belongsTo(models.District, {
+          as: "district",
+          foreignKey: "districtId"
+        });
         Activity.belongsTo(models.User, {
           as: "host",
           foreignKey: "hostId"
@@ -36,6 +41,10 @@ module.exports = function(sequelize, DataTypes) {
           through: models.ActivityAttendant,
           foreignKey: "activityId"
         });
+        Activity.hasMany(models.ActivityPic, {
+          as: "pics",
+          foreignKey: "activityId"
+        })
       }
     }
   });

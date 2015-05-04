@@ -331,5 +331,39 @@
 	}, {
 		"followerId": "1",
 		"attentionId": "2"
+	}],
+	"activities": [{
+		"id": "1",
+		"title": "张江镇英语沙龙",
+		"status": "1",
+		"categoryId": "3",
+		"hostId": "1",
+		"describe": "阳光明媚，快来学英语吧。阳光明媚，快来学英语吧。阳光明媚，快来学英语吧。阳光明媚，快来学英语吧。阳光明媚，快来学英语吧。阳光明媚，快来学英语吧。阳光明媚，快来学英语吧。",
+		"districtId": "4",
+		"location": "高斯路1234号",
+		"longitude": "60",
+		"dimensionality": "50",
+		"startTime": "2015-05-04 19:00:00",
+		"attendantCount": "5"
+	}, {
+		"id": "2",
+		"title": "一起来跳舞吧",
+		"status": "1",
+		"categoryId": "3",
+		"hostId": "1",
+		"describe": "专业拉丁舞老师，现场授课，机不可失，失不再来。",
+		"districtId": "5",
+		"location": "一二路1234号",
+		"longitude": "20",
+		"dimensionality": "30",
+		"startTime": "2015-05-05 19:00:00",
+		"attendantCount": "10"
+	}],
+	"activityPics": [{
+		"activityId": "1",
+		"name": "english2.jpg"
+	}, {
+		"activityId": "1",
+		"name": "english3.jpg"
 	}]
 }

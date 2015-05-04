@@ -11,7 +11,7 @@ router.post('/', function(req, res, next) {
 
 }).get('/', function(req, res) {
 	console.log('get');
-	res.send('2');
+	res.send('Photo');
 });
 
 module.exports = router;

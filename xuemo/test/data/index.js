@@ -37,5 +37,11 @@ exports.createInitData = function() {
     })
     .then(function() {
       return models.Follower.bulkCreate(data.followers);
+    })
+    .then(function() {
+      return models.Activity.bulkCreate(data.activities);
+    })
+    .then(function() {
+      return models.ActivityPic.bulkCreate(data.activityPics);
     });
 }
