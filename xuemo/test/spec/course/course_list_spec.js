@@ -20,7 +20,6 @@ frisby.create('Select course list')
 		status: Number,
 		rating: Number,
 		ratingCount: Number,
-		describe: String,
 		teacher: {
 			id: Number,
 			nickname: String,
@@ -35,12 +34,6 @@ frisby.create('Select course list')
 			return util.notEmptyArray(val);
 		},
 		pics: function(val) {
-			return util.notEmptyArray(val);
-		},
-		types: function(val) {
-			return util.notEmptyArray(val);
-		},
-		sites: function(val) {
 			return util.notEmptyArray(val);
 		}
 	})

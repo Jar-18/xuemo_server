@@ -21,9 +21,7 @@ frisby.create('Create course in step 1')
 			id: 1
 		},
 		districts: [{
-			id: 1
-		}, {
-			id: 2
+			id: 3
 		}],
 		sites: [{
 			id: 1
