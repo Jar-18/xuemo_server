@@ -133,7 +133,7 @@
 		"rating": "4.0",
 		"ratingCount": "5",
 		"describe": "就是没有描述。",
-		"teacherId": "1",
+		"teacherId": "3",
 		"categoryId": "4"
 	}, {
 		"id": "5",
@@ -145,7 +145,7 @@
 		"rating": "4.0",
 		"ratingCount": "5",
 		"describe": "就是没有描述。",
-		"teacherId": "1",
+		"teacherId": "3",
 		"categoryId": "4"
 	}, {
 		"id": "6",
@@ -157,7 +157,7 @@
 		"rating": "4.0",
 		"ratingCount": "5",
 		"describe": "就是没有描述。",
-		"teacherId": "1",
+		"teacherId": "3",
 		"categoryId": "4"
 	}, {
 		"id": "7",
@@ -169,7 +169,7 @@
 		"rating": "4.0",
 		"ratingCount": "5",
 		"describe": "就是没有描述。",
-		"teacherId": "1",
+		"teacherId": "3",
 		"categoryId": "4"
 	}, {
 		"id": "8",
@@ -181,7 +181,7 @@
 		"rating": "4.0",
 		"ratingCount": "5",
 		"describe": "就是没有描述。",
-		"teacherId": "1",
+		"teacherId": "3",
 		"categoryId": "4"
 	}, {
 		"id": "9",
@@ -193,7 +193,7 @@
 		"rating": "4.0",
 		"ratingCount": "5",
 		"describe": "就是没有描述。",
-		"teacherId": "1",
+		"teacherId": "3",
 		"categoryId": "4"
 	}, {
 		"id": "10",
@@ -205,7 +205,7 @@
 		"rating": "4.0",
 		"ratingCount": "5",
 		"describe": "就是没有描述。",
-		"teacherId": "1",
+		"teacherId": "3",
 		"categoryId": "4"
 	}, {
 		"id": "11",
@@ -217,7 +217,7 @@
 		"rating": "4.0",
 		"ratingCount": "5",
 		"describe": "就是没有描述。",
-		"teacherId": "1",
+		"teacherId": "3",
 		"categoryId": "4"
 	}],
 	"courseDistricts": [{
@@ -321,5 +321,15 @@
 		"status": "2",
 		"applicantId": "2",
 		"courseId": "1"
+	}],
+	"followers": [{
+		"followerId": "2",
+		"attentionId": "1"
+	}, {
+		"followerId": "3",
+		"attentionId": "1"
+	}, {
+		"followerId": "1",
+		"attentionId": "2"
 	}]
 }
