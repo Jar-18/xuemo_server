@@ -28,7 +28,6 @@ exports.findCourseList = function(params) {
 			}));
 	}
 
-
 	return models.sequelize.Promise.all(promiseArr)
 		.then(function() {
 			return _findCourseIdList(params, otherFilters);
@@ -40,7 +39,127 @@ exports.findCourseList = function(params) {
 			}
 			return _findCourseList(params, courseIdArr);
 		});
+}
 
+exports.findCourseById = function(courseId) {
+	return models.Course.find({
+      where: {
+        id: courseId
+      },
+      attributes: [
+        'id', 'title', 'price', 'status', 'rating', 'ratingCount', 'describe', 'teacherId', 'categoryId',
+      ],
+      include: [{
+        model: models.User,
+        as: "teacher",
+        attributes: ['id', 'nickname', 'gender', 'age', 'portrait', 'motto']
+      }, {
+        model: models.Category,
+        as: "category",
+        attributes: ['id', 'name']
+      }, {
+        model: models.District,
+        as: "districts",
+        attributes: ['id', 'name', 'fullName']
+      }, {
+        model: models.CoursePic,
+        as: "pics",
+        attributes: ['name'],
+      }, {
+        model: models.CourseType,
+        as: "types",
+        attributes: ['id']
+      }, {
+        model: models.CourseSite,
+        as: "sites",
+        attributes: ['id']
+      }]
+    });
+}
+
+exports.createCourse = function(params) {
+	return models.sequelize.transaction(function(t) {
+      return models.Course.create({
+        title: params.title,
+        price: params.price,
+        describe: params.describe,
+        teacherId: params.teacher.id,
+        categoryId: params.category.id,
+      }, {
+        transaction: t
+      }).then(function(course) {
+        //Temp
+        courseId = course.id;
+        var promiseArr = [];
+        var sites = params.sites;
+        if (sites != null) {
+          console.log("" + sites);
+          sites.forEach(function(site) {
+            promiseArr.push(models.CourseSite.create({
+              id: site.id,
+              courseId: course.id
+            }, {
+              transaction: t
+            }));
+          });
+        }
+        var types = params.types;
+        if (types != null) {
+          types.forEach(function(type) {
+            promiseArr.push(models.CourseType.create({
+              id: type.id,
+              courseId: course.id
+            }, {
+              transaction: t
+            }));
+          });
+        }
+        var districts = params.districts;
+        if (districts != null) {
+          districts.forEach(function(district) {
+            promiseArr.push(models.CourseDistrict.create({
+              courseId: course.id,
+              districtId: district.id
+            }, {
+              transaction: t
+            }));
+          })
+        }
+        return models.sequelize.Promise.all(promiseArr);
+      });
+    });
+}
+
+exports.updateCourse = function(params) {
+	return models.sequelize.transaction(function(t) {
+        return models.Course.find({
+            where: {
+              id: params.courseId
+            }
+          }, {
+            transaction: t
+          })
+          .then(function(course) {
+            var promiseArr = [];
+            promiseArr.push(course.updateAttributes({
+              describe: params.describe
+            }, {
+              transaction: t
+            }));
+            var pics = params.pics;
+            if (pics != null) {
+              pics.forEach(function(pic) {
+                promiseArr.push(models.CoursePic.create({
+                  courseId: params.courseId,
+                  name: pic.id
+                }, {
+                  transaction: t
+                }));
+              });
+            }
+            return models.sequelize.Promise.all(promiseArr);
+          });
+      });
 }
 
 function _findCourseIdList(params, otherFilters) {

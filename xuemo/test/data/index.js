@@ -6,29 +6,36 @@ exports.createInitData = function() {
       force: true
     })
     .success(function() {
-      new models.Sequelize.Utils.QueryChainer()
-        .add(models.District.bulkCreate(data.districts))
-        .add(models.Category.bulkCreate(data.categories))
-        .run()
-        .then(function() {
-          new models.Sequelize.Utils.QueryChainer()
-            .add(models.User.bulkCreate(data.users))
-            .run()
-            .then(function() {
-              new models.Sequelize.Utils.QueryChainer()
-                .add(models.Course.bulkCreate(data.courses))
-                .run()
-                .then(function() {
-                  new models.Sequelize.Utils.QueryChainer()
-                    .add(models.CourseDistrict.bulkCreate(data.courseDistricts))
-                    .add(models.CoursePic.bulkCreate(data.coursePics))
-                    .add(models.CourseType.bulkCreate(data.courseTypes))
-                    .add(models.CourseSite.bulkCreate(data.courseSites))
-                    .add(models.CourseRating.bulkCreate(data.courseRatings))
-                    .add(models.Appointment.bulkCreate(data.appointments))
-                    .run();
-                });
-            });
-        });
+      return models.District.bulkCreate(data.districts);
+    })
+    .then(function() {
+      return models.Category.bulkCreate(data.categories);
+    })
+    .then(function() {
+      return models.User.bulkCreate(data.users);
+    })
+    .then(function() {
+      return models.Course.bulkCreate(data.courses);
+    })
+    .then(function() {
+      return models.CourseDistrict.bulkCreate(data.courseDistricts);
+    })
+    .then(function() {
+      return models.CoursePic.bulkCreate(data.coursePics);
+    })
+    .then(function() {
+      return models.CourseType.bulkCreate(data.courseTypes);
+    })
+    .then(function() {
+      return models.CourseSite.bulkCreate(data.courseSites);
+    })
+    .then(function() {
+      return models.CourseRating.bulkCreate(data.courseRatings);
+    })
+    .then(function() {
+      return models.Appointment.bulkCreate(data.appointments);
+    })
+    .then(function() {
+      return models.Follower.bulkCreate(data.followers);
     });
 }
