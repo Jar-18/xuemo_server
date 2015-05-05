@@ -17,8 +17,9 @@ module.exports = function(sequelize, DataTypes) {
     describe: DataTypes.STRING,
     districtId: DataTypes.INTEGER,
     location: DataTypes.STRING,
-    longitude: DataTypes.FLOAT, //经度
-    dimensionality: DataTypes.FLOAT, //纬度
+    lat: DataTypes.DECIMAL(9,6), //纬度
+    lon: DataTypes.DECIMAL(9,6), //经度
+    geohash: DataTypes.STRING,
     startTime: DataTypes.DATE,
     attendantCount: DataTypes.INTEGER,
   }, {

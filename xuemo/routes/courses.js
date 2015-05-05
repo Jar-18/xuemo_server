@@ -10,7 +10,7 @@ router.get('/', function(req, res, next) {
     var params = {};
     params.pageSize = req.query.pageSize == null ? 10 : req.query.pageSize;
     params.pageNumber = req.query.pageNumber == null ? 1 : req.query.pageNumber;
-    params.orderBy = req.query.orderBy = null ? 'createdAt DESC' : req.query.orderBy;
+    params.orderBy = req.query.orderBy = null ? 'latest' : req.query.orderBy;
     params.simple = req.query.simple == null ? false : (req.query.simple == 'true' ? true : false);
     params.exceptCourseId = req.query.exceptCourseId;
     params.teacherId = req.query.teacherId;
