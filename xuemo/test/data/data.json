@@ -1,35 +1,4 @@
 {
-	"districts": [{
-		"id": "1",
-		"code": "1",
-		"name": "中国",
-		"fullName": "中国",
-		"parentId": "1"
-	}, {
-		"id": "2",
-		"code": "101",
-		"name": "上海",
-		"fullName": "中国-上海",
-		"parentId": "1"
-	}, {
-		"id": "3",
-		"code": "102",
-		"name": "四川",
-		"fullName": "中国-四川",
-		"parentId": "1"
-	}, {
-		"id": "4",
-		"code": "10101",
-		"name": "浦东新区",
-		"fullName": "中国-上海-浦东新区",
-		"parentId": "2"
-	}, {
-		"id": "5",
-		"code": "10102",
-		"name": "静安区",
-		"fullName": "中国-上海-静安区",
-		"parentId": "2"
-	}],
 	"categories": [{
 		"id": "1",
 		"code": "1",
@@ -119,7 +88,7 @@
 		"teacherId": "1",
 		"categoryId": "5",
 		"rating": "3.7",
-		"ratingCount": "3",
+		"ratingCount": "8",
 		"describe": "教羽毛球。教羽毛球。教羽毛球。教羽毛球。教羽毛球。教羽毛球。教羽毛球。教羽毛球。教羽毛球。教羽毛球。教羽毛球。教羽毛球。教羽毛球。教羽毛球。教羽毛球。教羽毛球。",
 		"teacherId": "2",
 		"categoryId": "5"
@@ -343,7 +312,7 @@
 		"location": "建中路108号",
 		"lat": "31.209935",
 		"lon": "121.6149049355",
-		"geohash":"wtw3x89b3",
+		"geohash": "wtw3x89b3",
 		"startTime": "2015-05-04 19:00:00",
 		"attendantCount": "5"
 	}, {
@@ -357,7 +326,7 @@
 		"location": "襄阳北路22弄",
 		"lat": "31.225994",
 		"lon": "121.460932",
-		"geohash":"wtw3eut0s",
+		"geohash": "wtw3eut0s",
 		"startTime": "2015-05-05 19:00:00",
 		"attendantCount": "10"
 	}],

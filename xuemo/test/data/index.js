@@ -1,12 +1,14 @@
 var models = require("../../models");
 var data = require("./data.json");
 
+var districts = require("./districts.json");
+
 exports.createInitData = function() {
   return models.sequelize.sync({
       force: true
     })
     .success(function() {
-      return models.District.bulkCreate(data.districts);
+      return models.District.bulkCreate(districts);
     })
     .then(function() {
       return models.Category.bulkCreate(data.categories);
