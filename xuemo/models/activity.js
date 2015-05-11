@@ -23,6 +23,9 @@ module.exports = function(sequelize, DataTypes) {
     startTime: DataTypes.DATE,
     attendantCount: DataTypes.INTEGER,
   }, {
+    indexes: [{
+      fields: ['geohash']
+    }],
     classMethods: {
       associate: function(models) {
         Activity.belongsTo(models.Category, {

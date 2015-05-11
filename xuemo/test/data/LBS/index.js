@@ -7,7 +7,7 @@ var centerLon = 121.607423;
 
 var range = 0.1;
 
-var amount = 1000;
+var amount = 10000;
 
 exports.createInitData = function() {
 	for(var i = 0;i < amount;i++) {

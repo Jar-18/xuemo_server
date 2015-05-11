@@ -11,8 +11,10 @@ exports.findCourseList = function(params) {
     params.orderBy = 'updatedAt DESC';
   } else if ('rating' == params.orderBy) {
     params.orderBy = 'rating DESC';
+  } else if ('hotest' == params.orderBy) {
+    params.orderBy = 'ratingCount DESC';
   } else {
-
+    params.orderBy = 'updatedAt DESC';
   }
 
   if (params.districtId != null) {

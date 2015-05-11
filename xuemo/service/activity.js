@@ -9,11 +9,8 @@ exports.findActivityList = function(params) {
 
 		return _findSmallestArea(geohashCode, params.pageSize)
 			.then(function(activities) {
-				//console.log(activities);
 				for(var i = 0;i < activities.length;i++) {
-					console.log('array'+activities[i].lat+' '+activities[i].lon);
 					var activity = activities[i];
-					// console.log('ac'+activity);
 					activity.dataValues.distance = _calcCrow(activity.lat, activity.lon, params.lat, params.lon);
 				}
 				activities.sort(function(a, b) {
@@ -23,10 +20,11 @@ exports.findActivityList = function(params) {
 			});
 
 	} else {
+		//TODO paging and sort
 		return models.Activity.findAll({
-			//limit: params.pageSize,
-			//offset: (params.pageNumber - 1) * params.pageSize,
-			//order: params.orderBy,
+			limit: params.pageSize,
+			offset: (params.pageNumber - 1) * params.pageSize,
+			order: params.orderBy,
 			attributes: ['id', 'title', 'location', 'startTime', 'attendantCount', 'categoryId', 'districtId'],
 			include: [{
 				model: models.Category,
