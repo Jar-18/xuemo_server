@@ -17,6 +17,9 @@ exports.findAllByCourseId = function(courseId, params) {
 	});
 }
 
-exports.createAppointment = function(courseId, userId) {
-	
+exports.createAppointment = function(courseId, applicantId) {
+	return models.Appointment.create({
+		courseId: courseId,
+		applicantId: applicantId
+	});
 }

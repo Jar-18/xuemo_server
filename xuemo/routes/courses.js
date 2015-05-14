@@ -20,6 +20,9 @@ router.get('/', function(req, res, next) {
     courseService.findCourseList(params)
       .then(function(courses) {
         res.json(courses);
+      })
+      .catch(function(err) {
+        
       });
   })
   .post('/', function(req, res) {

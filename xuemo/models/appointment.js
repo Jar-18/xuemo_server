@@ -11,6 +11,10 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.INTEGER
     },
     status: {
+      type: DataTypes.INTEGER,
+      defaultValue: 1
+    },
+    applicantId: {
       type: DataTypes.INTEGER
     }
   }, {

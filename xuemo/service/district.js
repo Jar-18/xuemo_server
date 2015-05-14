@@ -6,12 +6,17 @@ exports.findChildDistricts = function(districtId) {
 			id: districtId
 		}
 	}).then(function(district) {
-		return models.District.findAll({
-			where: {
-				code: {
-					$like: district.code + '%'
+		if (district != null) {
+			return models.District.findAll({
+				where: {
+					code: {
+						$like: district.code + '%'
+					}
 				}
-			}
-		});
+			});
+		}
+		else {
+			throw Error("Not found this district");
+		}
 	})
 }
