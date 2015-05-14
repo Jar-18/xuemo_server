@@ -19,7 +19,7 @@ frisby.create('Filter course by category')
 	.toss();
 
 frisby.create('Filter course by district(including its child districs)')
-	.get(config.HOST_URL + '/courses?districtId=2')
+	.get(config.HOST_URL + '/courses?districtId=7')
 	.expectStatus(200)
 	.expectJSON([{
 		id: 1

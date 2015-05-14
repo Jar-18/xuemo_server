@@ -16,3 +16,7 @@ exports.findAllByCourseId = function(courseId, params) {
 		}]
 	});
 }
+
+exports.createAppointment = function(courseId, userId) {
+	
+}

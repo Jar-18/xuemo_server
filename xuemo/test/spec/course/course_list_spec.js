@@ -33,8 +33,6 @@ frisby.create('Select course list')
 		districts: function(val) {
 			return util.notEmptyArray(val);
 		},
-		pics: function(val) {
-			return util.notEmptyArray(val);
-		}
+		pics: Array
 	})
 	.toss()

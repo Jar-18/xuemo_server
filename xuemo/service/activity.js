@@ -25,7 +25,7 @@ exports.findActivityList = function(params) {
 			limit: params.pageSize,
 			offset: (params.pageNumber - 1) * params.pageSize,
 			order: params.orderBy,
-			attributes: ['id', 'title', 'location', 'startTime', 'attendantCount', 'categoryId', 'districtId'],
+			attributes: ['id', 'title', 'location', 'startTime', 'attendantCount', 'categoryId', 'districtId', 'updatedAt'],
 			include: [{
 				model: models.Category,
 				as: "category",
