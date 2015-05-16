@@ -6,17 +6,32 @@ var userService = require('../service/user');
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-	models.User.findAll().then(function(users) {
-		res.json(users);
-	});
+	var params = {};
+	params.pageSize = req.query.pageSize == null ? 10 : req.query.pageSize;
+	params.pageNumber = req.query.pageNumber == null ? 1 : req.query.pageNumber;
+	if ("distance" == req.query.orderBy) {
+		params.userId = req.query.userId;
+		params.orderBy = 'distance';
+		params.lng = req.query.lng;
+		params.lat = req.query.lat;
+	} else if (null == req.query.orderBy) {
+		params.orderBy = 'updatedAt DESC';
+	} else {
+		params.orderBy = req.query.orderBy;
+	}
+
+	userService.findNearbyUsers(params)
+		.then(function(users) {
+			res.json(users);
+		});
 });
 
 router.get('/:userId', function(req, res) {
-	var userId = req.params.userId;
-	userService.findUserById(userId)
-		.then(function(user) {
-			res.json(user);
-		});
+		var userId = req.params.userId;
+		userService.findUserById(userId)
+			.then(function(user) {
+				res.json(user);
+			});
 	})
 	.get('/:userId/courses', function(req, res) {
 		var pageSize = req.query.pageSize == null ? 10 : req.query.pageSize;

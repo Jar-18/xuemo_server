@@ -13,7 +13,7 @@ router.get('/', function(req, res, next) {
 	//Temp
 	if("distance" == req.query.orderBy) {
 		params.orderBy = 'distance';
-		params.lon = req.query.lon;
+		params.lng = req.query.lng;
 		params.lat = req.query.lat;
 	}
 	else if(null == req.query.orderBy) {

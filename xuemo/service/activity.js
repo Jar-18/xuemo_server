@@ -5,20 +5,19 @@ var geohash = require('ngeohash');
 exports.findActivityList = function(params) {
 
 	if ("distance" == params.orderBy) {
-		var geohashCode = geohash.encode(params.lat, params.lon);
+		var geohashCode = geohash.encode(params.lat, params.lng);
 
 		return _findSmallestArea(geohashCode, params.pageSize)
 			.then(function(activities) {
-				for(var i = 0;i < activities.length;i++) {
+				for (var i = 0; i < activities.length; i++) {
 					var activity = activities[i];
-					activity.dataValues.distance = _calcCrow(activity.lat, activity.lon, params.lat, params.lon);
+					activity.dataValues.distance = _calcCrow(activity.lat, activity.lon, params.lat, params.lng);
 				}
 				activities.sort(function(a, b) {
 					return a.dataValues.distance - b.dataValues.distance;
 				});
-				return activities.slice(0, params.pageSize);
+				return activities.slice((params.pageNumber - 1) * params.pageSize, params.pageNumber * params.pageSize);
 			});
-
 	} else {
 		//TODO paging and sort
 		return models.Activity.findAll({
@@ -51,7 +50,7 @@ function _findSmallestArea(geohashCode, lowest) {
 			}
 		}
 	}).then(function(result) {
-		if (result.count >= lowest) {
+		if (result.count >= lowest || geohashCode == "") {
 			return result.rows;
 		} else {
 			//判断string空
