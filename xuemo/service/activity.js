@@ -42,6 +42,47 @@ exports.findActivityList = function(params) {
 	}
 }
 
+exports.createActivity = function(params) {
+	var geohashCode = geohash.encode(params.lat, params.lng);
+	return models.sequelize.transaction(function(t) {
+		var promiseArr = [];
+		var createActivityPromise = models.Activity.create({
+			title: params.title,
+			categoryId: params.categoryId,
+			hostId: params.hostId,
+			describe: params.describe,
+			districtId: params.districtId,
+			location: params.location,
+			lat: params.lat,
+			lng: params.lng,
+			geohash: geohashCode,
+			startTime: params.startTime,
+			endTime: params.endTime
+		}, {
+			transaction: t
+		});
+		promiseArr.push(createActivityPromise);
+		var pics = params.pics;
+		if (pics != null) {
+			pics.forEach(function(pic) {
+				var createPicPromise = createActivityPromise.then(function(activity) {
+					return models.ActivityPic.create({
+						name: pic.name,
+						activityId: activity.id
+					}, {
+						transaction: t
+					});
+				});
+				promiseArr.push(createPicPromise);
+			});
+		}
+		return models.sequelize.Promise.all(promiseArr)
+			.then(function(result) {
+				return result[0].id;
+			});
+	});
+};
+
 function _findSmallestArea(geohashCode, lowest) {
 	return models.Activity.findAndCountAll({
 		where: {

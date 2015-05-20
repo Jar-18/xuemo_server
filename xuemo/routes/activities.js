@@ -28,6 +28,29 @@ router.get('/', function(req, res, next) {
 			res.status(200)
 				.json(activities);
 		});
+})
+.post("/", function(req, res, next) {
+	var params = {};
+	params.title = req.body.title;
+    params.categoryId = req.body.category.id;
+ 	params.hostId = req.body.hostId;
+   	params.describe = req.body.describe;
+	params.districtId = req.body.district.id;
+   	params.location = req.body.locatoin;
+   	params.lat = req.body.lat;
+   	params.lng = req.body.lng;
+    params.startTime = req.body.startTime;
+  	params.endTime = req.body.endTime;
+  	params.pics = req.body.pics;
+	activityService.createActivity(params)
+		.then(function(activityId) {
+			//console.log(this.activityId);
+			res.status(201)
+				.json({
+					status: "Success",
+					activityId: activityId
+				});
+		});
 });
 
 module.exports = router;

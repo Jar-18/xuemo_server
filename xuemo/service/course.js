@@ -103,7 +103,6 @@ exports.createCourse = function(params) {
       var promiseArr = [];
       var sites = params.sites;
       if (sites != null) {
-        console.log("" + sites);
         sites.forEach(function(site) {
           promiseArr.push(models.CourseSite.create({
             id: site.id,

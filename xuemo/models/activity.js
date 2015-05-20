@@ -21,7 +21,11 @@ module.exports = function(sequelize, DataTypes) {
     lng: DataTypes.DECIMAL(9,6), //经度
     geohash: DataTypes.STRING,
     startTime: DataTypes.DATE,
-    attendantCount: DataTypes.INTEGER,
+    endTime: DataTypes.DATE,
+    attendantCount: {
+      type: DataTypes.INTEGER,
+      defaultValue: 1
+    }
   }, {
     indexes: [{
       fields: ['geohash']
