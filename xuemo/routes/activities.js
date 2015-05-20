@@ -32,10 +32,10 @@ router.get('/', function(req, res, next) {
 .post("/", function(req, res, next) {
 	var params = {};
 	params.title = req.body.title;
-    params.categoryId = req.body.category.id;
+    params.category = req.body.category;
  	params.hostId = req.body.hostId;
    	params.describe = req.body.describe;
-	params.districtId = req.body.district.id;
+	params.district = req.body.district;
    	params.location = req.body.locatoin;
    	params.lat = req.body.lat;
    	params.lng = req.body.lng;

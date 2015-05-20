@@ -45,13 +45,12 @@ exports.findActivityList = function(params) {
 exports.createActivity = function(params) {
 	var geohashCode = geohash.encode(params.lat, params.lng);
 	return models.sequelize.transaction(function(t) {
-		var promiseArr = [];
 		var createActivityPromise = models.Activity.create({
 			title: params.title,
-			categoryId: params.categoryId,
+			categoryId: params.category.id,
 			hostId: params.hostId,
 			describe: params.describe,
-			districtId: params.districtId,
+			districtId: params.district.id,
 			location: params.location,
 			lat: params.lat,
 			lng: params.lng,
@@ -61,25 +60,25 @@ exports.createActivity = function(params) {
 		}, {
 			transaction: t
 		});
-		promiseArr.push(createActivityPromise);
-		var pics = params.pics;
-		if (pics != null) {
-			pics.forEach(function(pic) {
-				var createPicPromise = createActivityPromise.then(function(activity) {
-					return models.ActivityPic.create({
+		return createActivityPromise.then(function(activity) {
+			var promiseArr = [];
+			var pics = params.pics;
+			if (pics != null) {
+				pics.forEach(function(pic) {
+					promiseArr.push(models.ActivityPic.create({
 						name: pic.name,
 						activityId: activity.id
 					}, {
 						transaction: t
-					});
+					}));
 				});
-				promiseArr.push(createPicPromise);
-			});
-		}
-		return models.sequelize.Promise.all(promiseArr)
-			.then(function(result) {
-				return result[0].id;
-			});
+			}
+			return models.sequelize.Promise.all(promiseArr)
+				.then(function(result) {
+					return createActivityPromise.value().id;
+				});
+		});
+
 	});
 };
 

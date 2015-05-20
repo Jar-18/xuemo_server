@@ -36,7 +36,7 @@ router.get('/', function(req, res, next) {
     params.types = req.body.types;
     params.districts = req.body.districts;
     courseService.createCourse(params)
-      .then(function(result) {
+      .then(function(courseId) {
         res.status(201).json({
           status: "Success",
           courseId: courseId

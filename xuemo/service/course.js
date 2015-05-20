@@ -89,7 +89,7 @@ exports.findCourseById = function(courseId) {
 
 exports.createCourse = function(params) {
   return models.sequelize.transaction(function(t) {
-    return models.Course.create({
+    var createCoursePromise = models.Course.create({
       title: params.title,
       price: params.price,
       describe: params.describe,
@@ -97,9 +97,8 @@ exports.createCourse = function(params) {
       categoryId: params.category.id,
     }, {
       transaction: t
-    }).then(function(course) {
-      //Temp
-      courseId = course.id;
+    })
+    return createCoursePromise.then(function(course) {
       var promiseArr = [];
       var sites = params.sites;
       if (sites != null) {
@@ -134,7 +133,10 @@ exports.createCourse = function(params) {
           }));
         })
       }
-      return models.sequelize.Promise.all(promiseArr);
+      return models.sequelize.Promise.all(promiseArr)
+        .then(function() {
+          return createCoursePromise.value().id;
+        });
     });
   });
 }
