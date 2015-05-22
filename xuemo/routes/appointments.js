@@ -31,11 +31,11 @@ router.get('/', function(req, res, next) {
     });
   })
   .post('/', function(req, res) {
-    if (req.query.applicantId == null || req.query.courseId == null) {
+    if (req.body.applicantId == null || req.body.courseId == null) {
       res.json('Parameter error');
       return;
     }
-    appointmentService.createAppointment(req.query.courseId, req.query.applicantId)
+    appointmentService.createAppointment(req.body.courseId, req.body.applicantId)
       .then(function(appointment) {
         res.status(201).json({
           appointmentId: appointment.id,

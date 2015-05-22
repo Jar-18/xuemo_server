@@ -10,7 +10,12 @@ frisby.globalSetup({ // globalSetup is for ALL requests
 });
 
 frisby.create('Create appointment')
-	.post(config.HOST_URL + '/appointments?courseId=2&applicantId=2')
+	.post(config.HOST_URL + '/appointments', {
+		courseId: 2,
+		applicantId: 2
+	}, {
+		json: true
+	})
 	.expectStatus(201)
 	.expectJSONTypes({
 		status: String,

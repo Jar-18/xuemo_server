@@ -28,8 +28,6 @@ frisby.create('Select activity list')
 			name: String,
 			fullName: String
 		},
-		pics: function(val) {
-			return util.notEmptyArray(val);
-		}
+		pics: Array
 	})
 	.toss()

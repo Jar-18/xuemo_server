@@ -18,15 +18,17 @@ exports.createInitData = function() {
 		var geohashCode = geohash.encode(destLat, destLon);
 		models.Activity.create({
 			title: destLat + ',' + destLon,
-			categoryId: "3",
-			hostId: "1",
+			categoryId: 3,
+			districtId: 1,
+			hostId: 1,
 			describe: "test LBS",
 			lat: destLat,
 			lng: destLon,
 			location: destLat + ',' + destLon,
 			geohash: geohashCode,
 			startTime: "2015-05-06 00:00:00",
-			attendantCount: "18"
+			endTime: "2015-05-06 08:00:00",
+			attendantCount: 18
 		});
 	}
 
