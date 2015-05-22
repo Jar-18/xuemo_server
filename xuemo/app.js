@@ -23,6 +23,7 @@ var courseRatings = require('./routes/courseRatings');
 var appointments = require('./routes/appointments');
 var photos = require('./routes/photos');
 var activities = require('./routes/activities');
+var activityAttendants = require('./routes/activityAttendants');
 
 var files = require('./routes/files');
 
@@ -67,6 +68,7 @@ app.use('/courseRatings', courseRatings);
 app.use('/appointments', appointments);
 app.use('/photos', photos);
 app.use('/activities', activities);
+app.use('/activityAttendants', activityAttendants);
 
 app.use('/files', files);
 

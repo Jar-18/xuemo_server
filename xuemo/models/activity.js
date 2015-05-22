@@ -24,7 +24,7 @@ module.exports = function(sequelize, DataTypes) {
     endTime: DataTypes.DATE,
     attendantCount: {
       type: DataTypes.INTEGER,
-      defaultValue: 1
+      defaultValue: 0
     }
   }, {
     indexes: [{

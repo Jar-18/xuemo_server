@@ -22,13 +22,15 @@ frisby.create('Create activity')
 		district: {
 			id: 2
 		},
+		hostId: 1,
 		pics: [{
 			name: "testPic.jpg"
 		}, {
 			name: "testPic2.jpg"
 		}],
 		startTime: "2014-05-22 19:00",
-		endTime: "2014-05-22 21:00"
+		endTime: "2014-05-22 21:00",
+		describe: "created by test"
 	}, {
 		json: true
 	})
@@ -39,5 +41,24 @@ frisby.create('Create activity')
 	})
 	.expectJSON({
 		status: "Success"
+	})
+	.afterJSON(function(result) {
+		//Put register test here
+		//Avoid repeat runing test cause unique constraint error
+		frisby.create('Register activity')
+			.post(config.HOST_URL + '/activityAttendants', {
+				activityId: result.activityId,
+				attendantId: 2
+			}, {
+				json: true
+			})
+			.expectStatus(201)
+			.expectJSONTypes({
+				status: String,
+			})
+			.expectJSON({
+				status: 'Success'
+			})
+			.toss()
 	})
 	.toss()
