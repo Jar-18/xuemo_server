@@ -7,6 +7,8 @@ module.exports = function(sequelize, DataTypes) {
       primaryKey: true,
       autoIncrement: true
     },
+    account: DataTypes.STRING,
+    passwordHash: DataTypes.STRING,
     nickname: DataTypes.STRING,
     gender: DataTypes.INTEGER,
     age: DataTypes.INTEGER,

@@ -25,9 +25,12 @@ var photos = require('./routes/photos');
 var activities = require('./routes/activities');
 var activityAttendants = require('./routes/activityAttendants');
 
+
 var files = require('./routes/files');
 
 var models = require("./models");
+
+var authService = require('./service/auth');
 
 var app = express();
 
@@ -58,6 +61,16 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+//Auth sign and check
+app.use('/', function(req, res, next) {
+  if('/auth' == req.originalUrl && 'POST' == req.method) {
+    authService.signAuth(req, res, next);
+  }
+  else {
+    authService.verifyAuth(req, res, next);
+  }
+});
 
 app.use('/', routes);
 app.use('/users', users);

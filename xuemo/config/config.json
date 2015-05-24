@@ -5,7 +5,10 @@
     "database": "dev",
     "host": "127.0.0.1",
     "dialect": "mysql",
-    "timezone": "+08:00"
+    "timezone": "+08:00",
+    "redisHost": "127.0.0.1",
+    "redisPort": "6379",
+    "secrect": "uweqowjenvmxp"
   },
   "test": {
     "username": "root",
@@ -13,7 +16,10 @@
     "database": "dev2",
     "host": "127.0.0.1",
     "dialect": "mysql",
-    "timezone": "+08:00"
+    "timezone": "+08:00",
+    "redisHost": "127.0.0.1",
+    "redisPort": "6379",
+    "secrect": "uweqowjenvmxp"
   },
   "production": {
     "username": "root",

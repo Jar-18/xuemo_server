@@ -34,7 +34,9 @@
 		"motto": "无忧无虑的程序猿",
 		"birthday": "1992-10-30",
 		"constellation": "1",
-		"districtId": "4"
+		"districtId": "4",
+		"account": "15800851078",
+		"passwordHash": "202cb962ac59075b964b07152d234b70"
 	}, {
 		"id": "2",
 		"nickname": "Alice",
@@ -44,7 +46,9 @@
 		"motto": "我为什么存在？",
 		"birthday": "1992-02-18",
 		"constellation": "2",
-		"districtId": "4"
+		"districtId": "4",
+		"account": "12345678900",
+		"passwordHash": "202cb962ac59075b964b07152d234b70"
 	}, {
 		"id": "3",
 		"nickname": "Bob",
@@ -54,7 +58,9 @@
 		"motto": "嘿嘿嘿，嘻嘻嘻",
 		"birthday": "1995-12-31",
 		"constellation": "3",
-		"districtId": "4"
+		"districtId": "4",
+		"account": "12345678901",
+		"passwordHash": "202cb962ac59075b964b07152d234b70"
 	}],
 	"courses": [{
 		"id": "1",
