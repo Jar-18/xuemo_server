@@ -20,7 +20,7 @@ exports.createInitData = function() {
 			title: destLat + ',' + destLon,
 			categoryId: 3,
 			districtId: 1,
-			hostId: 1,
+			hostId: 3,
 			describe: "test LBS",
 			lat: destLat,
 			lng: destLon,

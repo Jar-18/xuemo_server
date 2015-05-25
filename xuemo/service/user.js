@@ -4,6 +4,26 @@ var geohash = require('ngeohash');
 
 var locUtil = require('../util/locUtil');
 
+var md5 = require('MD5');
+
+exports.createUser = function(params) {
+	return models.User.create({
+		account: params.account,
+		passwordHash: md5(params.password)
+	});
+}
+
+exports.updatePersonalInfo = function(userId, params) {
+	return models.User.find(userId)
+		.then(function(user) {
+			if(params.birthday) {
+				//Temp
+				params.age = 2015 - params.birthday.split('-')[0];
+			}
+			return user.updateAttributes(params);
+		});
+}
+
 exports.findUserById = function(userId) {
 	return models.sequelize.Promise
 		.all([_findUserById(userId),

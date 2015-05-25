@@ -24,6 +24,21 @@ router.get('/', function(req, res, next) {
 		.then(function(users) {
 			res.json(users);
 		});
+})
+.post('/', function(req, res, next) {
+	if(req.body.account || req.body.password) {
+		res.json({
+			status: "Fail",
+			message: "Account or password is not legal"
+		});
+	}
+	var params = {};
+	params.account = req.body.account;
+	params.password = req.body.password;
+	userService.createUser(params)
+		.then(function(user) {
+			res.status(201).json(user);
+		})
 });
 
 router.get('/:userId', function(req, res) {
@@ -31,6 +46,33 @@ router.get('/:userId', function(req, res) {
 		userService.findUserById(userId)
 			.then(function(user) {
 				res.json(user);
+			});
+	})
+	.put('/:userId', function(req, res) {
+		var userId = req.body.userId;
+		var params = {};
+		if(req.body.nickname) {
+			params.nickname = req.body.nickname;
+		}
+		if(req.body.gender) {
+			params.gender = req.body.gender;
+		}
+		if(req.body.birthday) {
+			params.birthday = req.body.birthday;
+		}
+		if(req.body.motto) {
+			params.motto = req.body.motto;
+		}
+		userService.updatePersonalInfo(userId, params)
+			.then(function(user) {
+				res.status(200).json({
+					status: "Success"
+				});
+			})
+			.catch(function(mes) {
+				res.status(500).json({
+					message: mes
+				});
 			});
 	})
 	.get('/:userId/courses', function(req, res) {

@@ -20,7 +20,12 @@ exports.findActivityList = function(params) {
 			});
 	} else {
 		//TODO paging and sort
+		var wherePart = {};
+		if(params.hostId != null) {
+			wherePart.hostId =params.hostId;
+		}
 		return models.Activity.findAll({
+			where: wherePart,
 			limit: params.pageSize,
 			offset: (params.pageNumber - 1) * params.pageSize,
 			order: params.orderBy,

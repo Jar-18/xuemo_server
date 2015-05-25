@@ -35,7 +35,7 @@
 		"birthday": "1992-10-30",
 		"constellation": "1",
 		"districtId": "4",
-		"account": "15800851078",
+		"account": "user1",
 		"passwordHash": "202cb962ac59075b964b07152d234b70"
 	}, {
 		"id": "2",
@@ -47,7 +47,7 @@
 		"birthday": "1992-02-18",
 		"constellation": "2",
 		"districtId": "4",
-		"account": "12345678900",
+		"account": "user2",
 		"passwordHash": "202cb962ac59075b964b07152d234b70"
 	}, {
 		"id": "3",
@@ -59,7 +59,7 @@
 		"birthday": "1995-12-31",
 		"constellation": "3",
 		"districtId": "4",
-		"account": "12345678901",
+		"account": "user3",
 		"passwordHash": "202cb962ac59075b964b07152d234b70"
 	}],
 	"courses": [{
@@ -326,7 +326,7 @@
 		"title": "一起来跳舞吧",
 		"status": "1",
 		"categoryId": "3",
-		"hostId": "1",
+		"hostId": "2",
 		"describe": "专业拉丁舞老师，现场授课，机不可失，失不再来。",
 		"districtId": "5",
 		"location": "襄阳北路22弄",
