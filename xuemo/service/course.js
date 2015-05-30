@@ -2,8 +2,10 @@ var models = require('../models');
 var districtService = require('./district');
 var categoryService = require('./category');
 
-exports.findCourseList = function(params) {
+var rc = require('then-redis').createClient();
 
+
+exports.findCourseList = function(params) {
   var promiseArr = [];
   var otherFilters = {};
 
@@ -51,7 +53,7 @@ exports.findCourseList = function(params) {
     });
 }
 
-exports.findCourseById = function(courseId) {
+exports.findCourseById = function(courseId, params) {
   return models.Course.find({
     where: {
       id: courseId
@@ -84,6 +86,18 @@ exports.findCourseById = function(courseId) {
       as: "sites",
       attributes: ['id']
     }]
+  }).then(function(course) {
+    return rc.zscore('user:' + params.userId, courseId)
+      .then(function(score) {
+        console.log('score');
+        console.log(score);
+        if (null == score || undefined == score) {
+          course.dataValues.isFavourite = false;
+        } else {
+          course.dataValues.isFavourite = true;
+        }
+        return course;
+      });
   });
 }
 

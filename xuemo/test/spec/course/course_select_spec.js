@@ -5,7 +5,8 @@ var util = require('../../util/util.js');
 frisby.globalSetup({ // globalSetup is for ALL requests
 	request: {
 		headers: {
-			'Content-Type': 'application/json'
+			'Content-Type': 'application/json',
+			'Authorization': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjEsImlhdCI6MTQzMjk2NjIzOSwiZXhwIjoxODk5NTI2MjM5fQ.nULmifdtkwap92bEDyQ2--saSdxoreKJLT8ZKFDUb8g'
 		}
 	}
 });
@@ -21,6 +22,7 @@ frisby.create('Select one course')
 		rating: Number,
 		ratingCount: Number,
 		describe: String,
+		isFavourite: Boolean,
 		teacher: {
 			id: Number,
 			nickname: String,

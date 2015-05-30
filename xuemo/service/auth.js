@@ -26,7 +26,10 @@ exports.signAuth = function(req, res, next) {
 				});
 			} else {
 				delete user.dataValues.passwordHash;
-				var token = jwt.sign(user, config['secrect'], {
+				var userToHash = {
+					userId: user.id
+				}
+				var token = jwt.sign(userToHash, config['secrect'], {
 					//expires in 90 days
 					expiresInMinutes: 60 * 60 * 24 * 90
 				});
@@ -45,23 +48,21 @@ exports.verifyAuth = function(req, res, next) {
 	console.log(req.headers);
 	var token = req.body.token || req.query.token || req.headers['authorization'];
 	if (token) {
-		jwt.verify(token, config['secrect'], function(err, decoded) {
-			if (err) {
-				return res.json({
-					status: "Fail",
-					message: 'Failed to authenticate token.'
-				});
-			} else {
-				req.decoded = decoded;
-				next();
-			}
-		});
-
-	} else {
-		return res.status(403)
-			.json({
+		try {
+			var decoded = jwt.verify(token, config['secrect']);
+			req.decoded = decoded;
+		} catch (err) {
+			console.log('Auth fail');
+			res.json({
 				status: "Fail",
-				message: 'No token provided.'
+				message: 'Failed to authenticate token.'
 			});
+		}
+	} else {
+		// return res.status(403)
+		// 	.json({
+		// 		status: "Fail",
+		// 		message: 'No token provided.'
+		// 	});
 	}
 }

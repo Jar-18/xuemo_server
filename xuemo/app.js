@@ -69,7 +69,7 @@ app.use('/', function(req, res, next) {
     authService.signAuth(req, res, next);
   }
   else {
-    //authService.verifyAuth(req, res, next);
+    authService.verifyAuth(req, res, next);
     next();
   }
 });

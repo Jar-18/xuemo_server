@@ -50,9 +50,14 @@ router.get('/', function(req, res, next) {
 
 router.get('/:courseId', function(req, res) {
     var courseId = req.params.courseId;
-    courseService.findCourseById(courseId)
-      .then(function(courses) {
-        res.json(courses);
+    var params = {
+      userId: req.decoded.userId
+    };
+
+    courseService.findCourseById(courseId, params)
+      .then(function(course) {
+        console.log('222');
+        res.json(course);
       });
   })
   .put('/:courseId', function(req, res) {
