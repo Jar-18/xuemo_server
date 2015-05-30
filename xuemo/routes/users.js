@@ -43,7 +43,10 @@ router.get('/', function(req, res, next) {
 
 router.get('/:userId', function(req, res) {
 		var userId = req.params.userId;
-		userService.findUserById(userId)
+		var params = {
+			selfId: req.query.selfId
+		};
+		userService.findUserById(userId, params)
 			.then(function(user) {
 				res.json(user);
 			});

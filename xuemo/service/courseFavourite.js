@@ -8,7 +8,7 @@ exports.getCourseFavouriteList = function(userId, params) {
 	return rc.zrevrange('courseFavourite:' + userId, (params.pageNumber - 1) * params.pageSize, params.pageNumber * params.pageSize)
 		.then(function(courseIdArr) {
 			console.log(courseIdArr);
-			if (courseIdArr) {
+			if (courseIdArr.length > 0) {
 				return courseService.findCourseListByIdArr({
 					orderBy: "createdAt DESC"
 				}, courseIdArr);

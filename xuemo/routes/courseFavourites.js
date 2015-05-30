@@ -7,8 +7,8 @@ var courseFavouriteService = require('../service/courseFavourite');
 router.get('/', function(req, res) {
 	var userId = req.query.userId;
 	var params = {
-		pageSize: req.query.pageSize,
-		pageNumber: req.query.pageNumber
+		pageSize: req.query.pageSize ? req.query.pageSize : 10,
+		pageNumber: req.query.pageNumber ? req.query.pageNumber : 1
 	}
 	courseFavouriteService.getCourseFavouriteList(userId, params)
 		.then(function(courses) {

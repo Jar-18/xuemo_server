@@ -297,16 +297,6 @@
 		"applicantId": "2",
 		"courseId": "1"
 	}],
-	"followers": [{
-		"followerId": "2",
-		"attentionId": "1"
-	}, {
-		"followerId": "3",
-		"attentionId": "1"
-	}, {
-		"followerId": "1",
-		"attentionId": "2"
-	}],
 	"activities": [{
 		"id": "1",
 		"title": "张江镇英语沙龙",

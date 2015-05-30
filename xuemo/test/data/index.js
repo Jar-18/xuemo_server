@@ -43,9 +43,6 @@ exports.createInitData = function() {
       return models.Appointment.bulkCreate(data.appointments);
     })
     .then(function() {
-      return models.Follower.bulkCreate(data.followers);
-    })
-    .then(function() {
       return models.Activity.bulkCreate(data.activities);
     })
     .then(function() {

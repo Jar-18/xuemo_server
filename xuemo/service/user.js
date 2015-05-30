@@ -6,6 +6,8 @@ var locUtil = require('../util/locUtil');
 
 var md5 = require('MD5');
 
+var rc = require('then-redis').createClient();
+
 exports.createUser = function(params) {
 	return models.User.create({
 		account: params.account,
@@ -16,7 +18,7 @@ exports.createUser = function(params) {
 exports.updatePersonalInfo = function(userId, params) {
 	return models.User.find(userId)
 		.then(function(user) {
-			if(params.birthday) {
+			if (params.birthday) {
 				//Temp
 				params.age = 2015 - params.birthday.split('-')[0];
 			}
@@ -24,7 +26,7 @@ exports.updatePersonalInfo = function(userId, params) {
 		});
 }
 
-exports.findUserById = function(userId) {
+exports.findUserById = function(userId, params) {
 	return models.sequelize.Promise
 		.all([_findUserById(userId),
 			_findAttentionCount(userId),
@@ -34,6 +36,22 @@ exports.findUserById = function(userId) {
 			result[0].dataValues.attentionCount = result[1];
 			result[0].dataValues.followerCount = result[2];
 			return result[0];
+		})
+		.then(function(user) {
+			if(params.selfId) {
+				return rc.zscore('follower:' + userId, params.selfId)
+				.then(function(score) {
+					if (null == score || undefined == score) {
+						user.dataValues.isFollowed = false;
+					} else {
+						user.dataValues.isFollowed = true;
+					}
+					return user;
+				});
+			}
+			else {
+				return user;
+			}	
 		});
 }
 
@@ -43,7 +61,7 @@ exports.findNearbyUsers = function(params) {
 
 		return _findSmallestArea(geohashCode, params.pageSize, params.userId)
 			.then(function(users) {
-					//console.log(users);
+				//console.log(users);
 
 				var userArr = [];
 				for (var i = 0; i < users.length; i++) {
@@ -66,6 +84,26 @@ exports.findNearbyUsers = function(params) {
 			orderBy: params.orderBy
 		});
 	}
+}
+
+exports.findUserListByIdArr = function(params, userIdArr) {
+	return models.User.findAll({
+		where: {
+			id: {
+				$in: userIdArr
+			}
+		},
+		order: params.orderBy,
+		include: [{
+			model: models.Interest,
+			as: "interests",
+			attributes: ['id']
+		}, {
+			model: models.District,
+			as: "district",
+			attributes: ['id', 'name', 'fullName']
+		}]
+	});
 }
 
 function _findSmallestArea(geohashCode, lowest, userId) {

@@ -31,8 +31,4 @@ frisby.create('Select one user')
 		attentionCount: Number,
 		followerCount: Number
 	})
-	.expectJSON({
-		attentionCount: 1,
-		followerCount: 2
-	})
 	.toss()
