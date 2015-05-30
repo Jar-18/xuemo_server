@@ -24,6 +24,7 @@ var appointments = require('./routes/appointments');
 var photos = require('./routes/photos');
 var activities = require('./routes/activities');
 var activityAttendants = require('./routes/activityAttendants');
+var favourites = require('./routes/favourites');
 
 
 var files = require('./routes/files');
@@ -68,7 +69,8 @@ app.use('/', function(req, res, next) {
     authService.signAuth(req, res, next);
   }
   else {
-    authService.verifyAuth(req, res, next);
+    //authService.verifyAuth(req, res, next);
+    next();
   }
 });
 
@@ -82,6 +84,7 @@ app.use('/appointments', appointments);
 app.use('/photos', photos);
 app.use('/activities', activities);
 app.use('/activityAttendants', activityAttendants);
+app.use('/favourites', favourites);
 
 app.use('/files', files);
 

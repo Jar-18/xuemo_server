@@ -54,6 +54,11 @@ module.exports = function(sequelize, DataTypes) {
           through: models.ActivityAttendant,
           foreignKey: "attendantId"
         });
+        User.belongsToMany(models.Course, {
+          as: "favourites",
+          through: models.Favourite,
+          foreignKey: "userId"
+        });
       }
     }
   });
