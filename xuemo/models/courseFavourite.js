@@ -2,9 +2,14 @@
 
 module.exports = function(sequelize, DataTypes) {
   var CourseFavourite = sequelize.define("CourseFavourite", {
-    //No more attributes
+    userId: {
+      type: DataTypes.INTEGER,
+    },
+    courseId: {
+      type: DataTypes.INTEGER,
+    }
   }, {
-    timestamps: false,
+    timestamps: true,
   });
 
   return CourseFavourite;

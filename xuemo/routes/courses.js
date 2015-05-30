@@ -51,12 +51,11 @@ router.get('/', function(req, res, next) {
 router.get('/:courseId', function(req, res) {
     var courseId = req.params.courseId;
     var params = {
-      userId: req.decoded.userId
+      userId: req.query.userId
     };
 
     courseService.findCourseById(courseId, params)
       .then(function(course) {
-        console.log('222');
         res.json(course);
       });
   })

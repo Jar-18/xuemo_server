@@ -49,7 +49,7 @@ exports.findCourseList = function(params) {
       for (var i = 0; i < courses.length; i++) {
         courseIdArr.push(courses[i].id);
       }
-      return _findCourseList(params, courseIdArr);
+      return findCourseListByIdArr(params, courseIdArr);
     });
 }
 
@@ -87,10 +87,9 @@ exports.findCourseById = function(courseId, params) {
       attributes: ['id']
     }]
   }).then(function(course) {
-    return rc.zscore('user:' + params.userId, courseId)
+    if(params.userId) {
+      return rc.zscore('courseFavourite:' + params.userId, courseId)
       .then(function(score) {
-        console.log('score');
-        console.log(score);
         if (null == score || undefined == score) {
           course.dataValues.isFavourite = false;
         } else {
@@ -98,6 +97,10 @@ exports.findCourseById = function(courseId, params) {
         }
         return course;
       });
+    }
+    else {
+      return course;
+    }
   });
 }
 
@@ -214,7 +217,7 @@ function _findCourseIdList(params, otherFilters) {
   });
 }
 
-function _findCourseList(params, courseIdArr) {
+function findCourseListByIdArr(params, courseIdArr) {
   return models.Course.findAll({
     where: {
       id: {
@@ -242,3 +245,4 @@ function _findCourseList(params, courseIdArr) {
     }],
   });
 }
+exports.findCourseListByIdArr = findCourseListByIdArr;

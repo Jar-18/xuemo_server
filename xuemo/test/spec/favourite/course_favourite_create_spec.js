@@ -10,7 +10,7 @@ frisby.globalSetup({ // globalSetup is for ALL requests
 });
 
 frisby.create('Create course favourite')
-	.post(config.HOST_URL + '/favourites', {
+	.post(config.HOST_URL + '/courseFavourites', {
 		userId: 1,
 		courseId: 2
 	}, {

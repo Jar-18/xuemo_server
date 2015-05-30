@@ -12,7 +12,7 @@ frisby.globalSetup({ // globalSetup is for ALL requests
 });
 
 frisby.create('Select one course')
-	.get(config.HOST_URL + '/courses/1')
+	.get(config.HOST_URL + '/courses/1?userId=1')
 	.expectStatus(200)
 	.expectJSONTypes({
 		id: Number,

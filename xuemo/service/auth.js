@@ -45,7 +45,6 @@ exports.signAuth = function(req, res, next) {
 }
 
 exports.verifyAuth = function(req, res, next) {
-	console.log(req.headers);
 	var token = req.body.token || req.query.token || req.headers['authorization'];
 	if (token) {
 		try {
