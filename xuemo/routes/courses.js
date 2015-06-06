@@ -18,8 +18,11 @@ router.get('/', function(req, res, next) {
     params.categoryId = req.query.categoryId;
 
     courseService.findCourseList(params)
-      .then(function(courses) {
-        res.json(courses);
+      .then(function(coursesWithCount) {
+        res.set({
+          'X-Total-Count': coursesWithCount.count
+        });
+        res.json(coursesWithCount.courses);
       })
       .catch(function(err) {
         
