@@ -20,9 +20,21 @@ exports.updatePersonalInfo = function(userId, params) {
 		.then(function(user) {
 			if (params.birthday) {
 				//Temp
-				params.age = 2015 - params.birthday.split('-')[0];
+				var now = new Date();
+				params.age = 1900 + now.getYear() - params.birthday.split('-')[0];
 			}
-			return user.updateAttributes(params);
+			var promiseArr = [];
+			promiseArr.push(user.updateAttributes(params));
+			if(params.interests) {
+				var interests = params.interests;
+				for(var i = 0;i < interests.length;i++) {
+					promiseArr.push(UserInterest.create({
+						userId: userId,
+						interestId: interests[i].id
+					}));
+				}
+			}
+			return models.sequelize.Promise.all(promiseArr);
 		});
 }
 
@@ -95,7 +107,7 @@ exports.findUserListByIdArr = function(params, userIdArr) {
 		},
 		order: params.orderBy,
 		include: [{
-			model: models.Interest,
+			model: models.UserInterest,
 			as: "interests",
 			attributes: ['id']
 		}, {
@@ -137,7 +149,7 @@ function _findUserById(userId) {
 			id: userId
 		},
 		include: [{
-			model: models.Interest,
+			model: models.UserInterest,
 			as: "interests",
 			attributes: ['id']
 		}, {

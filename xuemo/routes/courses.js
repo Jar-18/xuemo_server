@@ -20,6 +20,7 @@ router.get('/', function(req, res, next) {
     courseService.findCourseList(params)
       .then(function(coursesWithCount) {
         res.set({
+          'Access-Control-Expose-Headers': 'X-Total-Count',
           'X-Total-Count': coursesWithCount.count
         });
         res.json(coursesWithCount.courses);

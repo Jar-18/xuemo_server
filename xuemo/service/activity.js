@@ -2,6 +2,28 @@ var models = require('../models');
 
 var geohash = require('ngeohash');
 
+exports.findActivityById = function(activityId) {
+	return models.Activity.findOne({
+		where: {
+			id: activityId
+		},
+		attributes: ['id', 'title', 'location', 'startTime', 'attendantCount', 'categoryId', 'districtId', 'updatedAt'],
+			include: [{
+				model: models.Category,
+				as: "category",
+				attributes: ['id', 'name']
+			}, {
+				model: models.District,
+				as: "district",
+				attributes: ['id', 'name', 'fullName']
+			}, {
+				model: models.ActivityPic,
+				as: "pics",
+				attributes: ['name']
+			}]
+	});
+}
+
 exports.findActivityList = function(params) {
 
 	if ("distance" == params.orderBy) {
@@ -24,7 +46,7 @@ exports.findActivityList = function(params) {
 		if(params.hostId != null) {
 			wherePart.hostId =params.hostId;
 		}
-		return models.Activity.findAll({
+		return models.Activity.findAndCountAll({
 			where: wherePart,
 			limit: params.pageSize,
 			offset: (params.pageNumber - 1) * params.pageSize,

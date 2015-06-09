@@ -41,10 +41,6 @@ module.exports = function(sequelize, DataTypes) {
           through: models.Follower,
           foreignKey: "followerId"
         });
-        User.hasMany(models.Interest, {
-          as: "interests",
-          foreignKey: "userId"
-        });
         User.belongsTo(models.District, {
           as: "district",
           foreignKey: "districtId"
@@ -57,6 +53,10 @@ module.exports = function(sequelize, DataTypes) {
         User.belongsToMany(models.Course, {
           as: "courseFavourites",
           through: models.CourseFavourite,
+          foreignKey: "userId"
+        });
+        User.hasMany(models.UserInterest, {
+          as: "interests",
           foreignKey: "userId"
         });
       }

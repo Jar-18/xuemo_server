@@ -66,6 +66,9 @@ router.get('/:userId', function(req, res) {
 		if(req.body.motto) {
 			params.motto = req.body.motto;
 		}
+		if(req.body.interests) {
+			params.interests = req.body.interests;
+		}
 		userService.updatePersonalInfo(userId, params)
 			.then(function(user) {
 				res.status(200).json({
