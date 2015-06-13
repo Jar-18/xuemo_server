@@ -290,12 +290,14 @@
 		"id": "1",
 		"status": "1",
 		"applicantId": "2",
-		"courseId": "1"
+		"courseId": "1",
+		"comment":"我真的好想学这个（考虑字数）"
 	}, {
 		"id": "2",
 		"status": "2",
 		"applicantId": "2",
-		"courseId": "1"
+		"courseId": "1",
+		"comment":"我对这个很感兴趣（考虑字数）"
 	}],
 	"activities": [{
 		"id": "1",

@@ -9,26 +9,40 @@ router.get('/', function(req, res, next) {
     var pageNumber = req.query.pageNumber == null ? 1 : req.query.pageNumber;
     var orderBy = req.query.orderBy = null ? 'updatedAt DESC' : req.query.orderBy;
     var courseId = req.query.courseId;
-    if (courseId == null) {
+    var userId = req.query.userId;
+    var param = {
+      pageSize: pageSize,
+      pageNumber: pageNumber,
+      orderBy: orderBy,
+    };
+    if (courseId == null && userId == null) {
       res.send("Not support");
       return;
     }
-    models.Appointment.findAll({
-      where: {
-        courseId: courseId
-      },
-      limit: pageSize,
-      offset: (pageNumber - 1) * pageSize,
-      order: orderBy,
-      attributes: ['updatedAt'],
-      include: [{
-        model: models.User,
-        as: "applicant",
-        attributes: ['id', 'nickname', 'portrait', 'gender', 'age']
-      }]
-    }).then(function(courseAppointments) {
-      res.json(courseAppointments);
-    });
+    if (courseId) {
+      models.Appointment.findAll({
+        where: {
+          courseId: courseId
+        },
+        limit: pageSize,
+        offset: (pageNumber - 1) * pageSize,
+        order: orderBy,
+        attributes: ['updatedAt'],
+        include: [{
+          model: models.User,
+          as: "applicant",
+          attributes: ['id', 'nickname', 'portrait', 'gender', 'age']
+        }]
+      }).then(function(courseAppointments) {
+        res.json(courseAppointments);
+      });
+    }
+    if(userId) {
+      appointmentService.findAllByUserId(userId, param)
+        .then(function(appointments) {
+          res.json(appointments);
+        });
+    }
   })
   .post('/', function(req, res) {
     if (req.body.applicantId == null || req.body.courseId == null) {

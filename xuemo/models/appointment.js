@@ -16,6 +16,9 @@ module.exports = function(sequelize, DataTypes) {
     },
     applicantId: {
       type: DataTypes.INTEGER
+    },
+    comment: {
+      type: DataTypes.STRING
     }
   }, {
     timestamps: true,
