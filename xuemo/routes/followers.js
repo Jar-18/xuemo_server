@@ -16,12 +16,20 @@ router.get('/', function(req, res, next) {
 		if (followerId && !attentionId) {
 			followerService.getAttentionList(followerId, params)
 				.then(function(users) {
+					res.set({
+						'Access-Control-Expose-Headers': 'X-Total-Count',
+						'X-Total-Count': users.length
+					});
 					res.status(200)
 						.json(users);
 				});
 		} else if (attentionId && !followerId) {
-			followerService.getFollowerList(attentionId,params)
+			followerService.getFollowerList(attentionId, params)
 				.then(function(users) {
+					res.set({
+						'Access-Control-Expose-Headers': 'X-Total-Count',
+						'X-Total-Count': users.length
+					});
 					res.status(200)
 						.json(users);
 				});
