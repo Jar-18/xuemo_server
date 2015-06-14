@@ -3,6 +3,7 @@ var models = require('../models');
 var geohash = require('ngeohash');
 
 var locUtil = require('../util/locUtil');
+var dateUtil = require('../util/dateUtil');
 
 var md5 = require('MD5');
 
@@ -20,8 +21,10 @@ exports.updatePersonalInfo = function(userId, params) {
 		.then(function(user) {
 			if (params.birthday) {
 				//Temp
+				var birthdayDate = new Date(params.birthday);
 				var now = new Date();
 				params.age = 1900 + now.getYear() - params.birthday.split('-')[0];
+				params.constellation = dateUtil.specifyConstellation(birthdayDate);
 			}
 			var promiseArr = [];
 			promiseArr.push(user.updateAttributes(params));
