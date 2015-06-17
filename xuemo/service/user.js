@@ -94,6 +94,7 @@ exports.findNearbyUsers = function(params) {
 	} else {
 		//TODO paging and sort
 		return models.User.findAll({
+			attributes: ['nickname', 'gender', 'age', 'portrait', 'motto', 'constellation', 'districtId'],
 			limit: params.pageSize,
 			offset: (params.pageNumber - 1) * params.pageSize,
 			orderBy: params.orderBy
@@ -108,6 +109,7 @@ exports.findUserListByIdArr = function(params, userIdArr) {
 				$in: userIdArr
 			}
 		},
+		attributes: ['nickname', 'gender', 'age', 'portrait', 'motto', 'constellation', 'districtId'],
 		order: params.orderBy,
 		include: [{
 			model: models.UserInterest,
@@ -132,6 +134,7 @@ function _findSmallestArea(geohashCode, lowest, userId) {
 			}
 		},
 		include: [{
+			attributes: ['nickname', 'gender', 'age', 'portrait', 'motto', 'constellation', 'districtId'],
 			model: models.User,
 			as: "user"
 		}]
